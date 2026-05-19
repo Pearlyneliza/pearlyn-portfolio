@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pearlyn Elizabeth — AI Agent Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FFF8EE;--dark:#1C1206;--rust:#C84B2F;--teal:#1B7A6B;
+  --gold:#E8A02A;--blush:#F2C9A0;--sky:#A8D8EA;--sage:#7BA05B;
+  --sand:#D4B896;--warm:#F5E6CE;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);color:var(--dark);
+  font-family:'Cabinet Grotesk',sans-serif;
+  overflow-x:hidden;
+}
+ 
+/* STARS / SPARKLE BG */
+body::before{
+  content:'✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦';
+  position:fixed;top:0;left:0;right:0;
+  font-size:0.8rem;color:rgba(200,75,47,0.08);
+  letter-spacing:2.5rem;line-height:4rem;
+  word-break:break-all;pointer-events:none;z-index:0;
+  white-space:normal;padding:1rem;
+}
+ 
+/* TOP BANNER */
+.banner{
+  background:var(--rust);color:var(--cream);
+  font-family:'Cabinet Grotesk',sans-serif;font-weight:700;
+  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.5rem 0;text-align:center;position:relative;z-index:50;
+}
+ 
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 4rem;position:sticky;top:0;z-index:100;
+  background:rgba(255,248,238,0.92);backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--dark);
+}
+.nav-logo{
+  font-family:'Fraunces',sans-serif;font-style:italic;
+  font-size:1.4rem;font-weight:900;color:var(--dark);text-decoration:none;
+}
+.nav-logo em{color:var(--rust);font-style:normal}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:0.85rem;font-weight:700;color:var(--dark);text-decoration:none;
+  letter-spacing:0.04em;text-transform:uppercase;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;
+  background:var(--rust);transition:width 0.25s;
+}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  background:var(--rust);color:var(--cream);
+  font-weight:800;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;
+  padding:0.65rem 1.4rem;border:2px solid var(--dark);text-decoration:none;
+  border-radius:100px;transition:background 0.2s,transform 0.15s;
+}
+.nav-cta:hover{background:var(--dark);transform:translateY(-1px)}
+ 
+/* HERO */
+.hero{
+  min-height:90vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:4rem 4rem 2rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+ 
+/* SVG scene background */
+.hero-scene{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+}
+ 
+/* Floating illustrated elements */
+.fl{position:absolute;animation:sway 6s ease-in-out infinite;pointer-events:none}
+.fl:nth-child(2){animation-delay:-2s}
+.fl:nth-child(3){animation-delay:-4s}
+.fl:nth-child(4){animation-delay:-1s}
+.fl:nth-child(5){animation-delay:-3s}
+@keyframes sway{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+ 
+.hero-content{position:relative;z-index:2;max-width:900px}
+ 
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--gold);border:2px solid var(--dark);border-radius:100px;
+  font-weight:800;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--dark);padding:0.4rem 1.1rem;margin-bottom:2rem;
+  box-shadow:3px 3px 0 var(--dark);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes popIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}
+ 
+.hero h1{
+  font-family:'Fraunces',sans-serif;font-weight:900;
+  font-size:clamp(3.5rem,10vw,9rem);line-height:0.88;
+  letter-spacing:-0.04em;color:var(--dark);
+  animation:fadeUp 0.7s 0.1s ease both;
+  margin-bottom:0.5rem;
+}
+.hero h1 em{color:var(--rust);font-style:italic}
+.hero h1 .outline{
+  -webkit-text-stroke:3px var(--dark);color:transparent;
+}
+ 
+.hero-tagline{
+  font-family:'Fraunces',sans-serif;font-style:italic;
+  font-size:clamp(1.2rem,3vw,2rem);color:var(--teal);
+  font-weight:700;margin:1rem 0 1.5rem;
+  animation:fadeUp 0.7s 0.2s ease both;
+}
+ 
+.hero-desc{
+  font-size:1.05rem;color:#5A4A35;font-weight:500;line-height:1.6;
+  max-width:520px;margin:0 auto 2.5rem;
+  animation:fadeUp 0.7s 0.3s ease both;
+}
+ 
+.hero-pills{
+  display:flex;flex-wrap:wrap;gap:0.6rem;
+  justify-content:center;margin-bottom:2.5rem;
+  animation:fadeUp 0.7s 0.35s ease both;
+}
+.pill{
+  font-size:0.78rem;font-weight:700;padding:0.4rem 1rem;
+  border:2px solid var(--dark);border-radius:100px;
+  background:var(--warm);color:var(--dark);letter-spacing:0.03em;
+  transition:background 0.2s,transform 0.15s;
+}
+.pill:hover{background:var(--gold);transform:translateY(-2px)}
+.pill-rust{background:var(--rust);color:var(--cream)}
+.pill-teal{background:var(--teal);color:var(--cream)}
+ 
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.7s 0.4s ease both;
+}
+.btn-main{
+  font-weight:800;font-size:0.9rem;letter-spacing:0.04em;text-transform:uppercase;
+  padding:1rem 2.2rem;border:2px solid var(--dark);border-radius:100px;
+  text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-main-rust{background:var(--rust);color:var(--cream);box-shadow:4px 4px 0 var(--dark)}
+.btn-main-rust:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
+.btn-main-outline{background:transparent;color:var(--dark);box-shadow:4px 4px 0 var(--teal)}
+.btn-main-outline:hover{background:var(--warm);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
+ 
+/* WAVE DIVIDER */
+.wave{width:100%;display:block;fill:var(--dark)}
+ 
+/* ABOUT — dark section */
+.about-dark{background:var(--dark);color:var(--cream);padding:5rem 4rem}
+.about-dark .s-label{color:var(--gold);font-weight:800;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem}
+.about-dark .s-title{
+  font-family:'Fraunces',sans-serif;font-size:clamp(2rem,5vw,4rem);
+  font-weight:900;letter-spacing:-0.04em;line-height:0.95;
+  color:var(--cream);margin-bottom:3rem;
+}
+.about-dark .s-title em{color:var(--gold);font-style:italic}
+.about-grid-dark{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-text-dark p{color:#C4B49E;font-size:1rem;line-height:1.75;margin-bottom:1.25rem;font-weight:500}
+.about-text-dark p strong{color:var(--cream)}
+.about-card-stack{display:flex;flex-direction:column;gap:1rem}
+.about-card{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem;
+  transition:background 0.2s;
+}
+.about-card:hover{background:rgba(255,255,255,0.08)}
+.about-card-icon{
+  width:48px;height:48px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;
+}
+.aci-gold{background:rgba(232,160,42,0.2)}
+.aci-rust{background:rgba(200,75,47,0.2)}
+.aci-teal{background:rgba(27,122,107,0.2)}
+.aci-sage{background:rgba(123,160,91,0.2)}
+.about-card-text strong{display:block;font-weight:800;font-size:0.95rem;color:var(--cream);margin-bottom:0.2rem}
+.about-card-text span{font-size:0.82rem;color:#9A8A78}
+ 
+/* PROJECTS */
+.projects-section{padding:5rem 4rem;background:var(--warm)}
+.s-label{font-weight:800;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rust);margin-bottom:0.75rem}
+.s-title{
+  font-family:'Fraunces',sans-serif;font-size:clamp(2rem,5vw,4rem);
+  font-weight:900;letter-spacing:-0.04em;line-height:0.95;
+  color:var(--dark);margin-bottom:3rem;
+}
+.s-title em{color:var(--rust);font-style:italic}
+ 
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.proj-card{
+  background:var(--cream);border:2px solid var(--dark);border-radius:20px;
+  padding:2rem;text-decoration:none;color:inherit;display:block;
+  transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;
+}
+.proj-card::before{
+  content:'';position:absolute;inset:0;border-radius:18px;
+  background:linear-gradient(135deg,transparent 60%,rgba(200,75,47,0.05));
+  opacity:0;transition:opacity 0.3s;
+}
+.proj-card:hover{transform:translateY(-4px) rotate(-0.5deg);box-shadow:8px 8px 0 var(--dark)}
+.proj-card:hover::before{opacity:1}
+ 
+.proj-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
+.proj-num-tag{
+  font-family:'Fraunces',sans-serif;font-style:italic;font-size:2.5rem;
+  font-weight:900;color:rgba(28,18,6,0.12);line-height:1;
+}
+.proj-cat{
+  font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.3rem 0.8rem;border-radius:100px;border:2px solid;
+}
+.cat-rust{background:rgba(200,75,47,0.1);border-color:var(--rust);color:var(--rust)}
+.cat-teal{background:rgba(27,122,107,0.1);border-color:var(--teal);color:var(--teal)}
+.cat-gold{background:rgba(232,160,42,0.1);border-color:var(--gold);color:#8A5F0D}
+ 
+.proj-card h3{
+  font-family:'Fraunces',sans-serif;font-size:1.4rem;font-weight:900;
+  letter-spacing:-0.02em;line-height:1.1;color:var(--dark);margin-bottom:0.75rem;
+}
+.proj-card p{font-size:0.875rem;color:#6A5840;line-height:1.65;margin-bottom:1.25rem;font-weight:500}
+.proj-stack{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem}
+.proj-tag{
+  font-size:0.68rem;font-weight:700;padding:0.25rem 0.65rem;
+  border-radius:100px;background:var(--blush);color:var(--dark);border:1.5px solid var(--sand);
+}
+.proj-link{
+  font-weight:800;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--rust);display:inline-flex;align-items:center;gap:0.4rem;
+  transition:gap 0.2s;
+}
+.proj-link:hover{gap:0.7rem}
+ 
+/* TOOLS */
+.tools-section{padding:5rem 4rem;background:var(--cream)}
+.tools-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.tool-card{
+  background:var(--warm);border:2px solid var(--dark);border-radius:16px;
+  padding:1.5rem;transition:transform 0.2s,background 0.2s;
+  display:flex;flex-direction:column;gap:0.5rem;
+}
+.tool-card:hover{transform:translateY(-3px) rotate(-1deg);background:var(--gold)}
+.tool-card:nth-child(5){grid-column:span 2;background:var(--rust);border-color:var(--dark)}
+.tool-card:nth-child(5) .tc-name,.tool-card:nth-child(5) .tc-type{color:var(--cream)}
+.tool-card:nth-child(5) .tc-icon{font-size:2.5rem}
+.tool-card:nth-child(10){grid-column:span 2;background:var(--teal);border-color:var(--dark)}
+.tool-card:nth-child(10) .tc-name,.tool-card:nth-child(10) .tc-type{color:var(--cream)}
+.tc-icon{font-size:2rem}
+.tc-name{font-family:'Fraunces',sans-serif;font-size:1rem;font-weight:900;letter-spacing:-0.01em;color:var(--dark)}
+.tc-type{font-size:0.72rem;font-weight:700;color:#8A7860;letter-spacing:0.04em;text-transform:uppercase}
+ 
+/* CONTACT */
+.contact-section{
+  padding:5rem 4rem;background:var(--dark);
+  position:relative;overflow:hidden;
+}
+.contact-section::before{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,42,0.08),transparent 70%);
+  top:-200px;right:-100px;pointer-events:none;
+}
+.contact-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
+.contact-left .s-label{color:var(--gold)}
+.contact-left .s-title{color:var(--cream)}
+.contact-left .s-title em{color:var(--gold)}
+.contact-left p{color:#9A8A78;font-size:1rem;line-height:1.7;margin-top:1rem}
+ 
+.contact-cards{display:flex;flex-direction:column;gap:1rem}
+.contact-card{
+  display:flex;align-items:center;gap:1.25rem;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;padding:1.25rem 1.5rem;text-decoration:none;color:var(--cream);
+  transition:background 0.2s,transform 0.15s,border-color 0.2s;font-weight:500;
+}
+.contact-card:hover{background:rgba(232,160,42,0.1);border-color:var(--gold);transform:translateX(6px)}
+.cc-icon{
+  width:42px;height:42px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+}
+.cc-icon-gold{background:rgba(232,160,42,0.2)}
+.cc-icon-rust{background:rgba(200,75,47,0.2)}
+.cc-icon-teal{background:rgba(27,122,107,0.2)}
+.cc-text strong{display:block;font-weight:800;font-size:0.9rem;margin-bottom:0.15rem}
+.cc-text span{font-size:0.78rem;color:#7A6A58}
+ 
+/* FOOTER */
+footer{
+  background:var(--dark);border-top:1px solid rgba(255,255,255,0.08);
+  padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:'Fraunces',sans-serif;font-style:italic;font-size:1.1rem;font-weight:900;color:var(--cream)}
+.footer-logo em{color:var(--gold);font-style:normal}
+footer p{color:#5A4A35;font-size:0.8rem}
+ 
+/* REVEAL */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s,transform 0.7s}
+.reveal.visible{opacity:1;transform:none}
+ 
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero,.about-dark,.projects-section,.tools-section,.contact-section{padding:3rem 1.5rem}
+  .about-grid-dark,.contact-inner-grid,.proj-grid{grid-template-columns:1fr}
+  .tools-bento{grid-template-columns:1fr 1fr}
+  .tool-card:nth-child(5),.tool-card:nth-child(10){grid-column:span 1}
+  footer{padding:1.5rem;flex-direction:column;gap:0.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+ 
+<!-- BANNER -->
+<div class="banner">✦ Open to AI Agent & Solution Architect Roles · UK ✦</div>
+ 
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Pearlyn <em>E.</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:pearlynelizabeth29@gmail.com" class="nav-cta">Hire Me ↗</a>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+ 
+  <!-- Illustrated floating SVG decorations -->
+  <svg class="hero-scene" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <!-- Stars -->
+    <text x="80" y="120" font-size="18" fill="#E8A02A" opacity="0.6">✦</text>
+    <text x="200" y="60" font-size="12" fill="#C84B2F" opacity="0.4">✧</text>
+    <text x="1050" y="100" font-size="20" fill="#1B7A6B" opacity="0.5">✦</text>
+    <text x="1100" y="200" font-size="10" fill="#E8A02A" opacity="0.4">✧</text>
+    <text x="50" y="500" font-size="14" fill="#C84B2F" opacity="0.3">✦</text>
+    <text x="1130" y="560" font-size="16" fill="#E8A02A" opacity="0.4">✧</text>
+    <text x="600" y="40" font-size="12" fill="#1B7A6B" opacity="0.35">✦</text>
+ 
+    <!-- Left side: abstract brain/circuit blob -->
+    <g transform="translate(60, 250)" opacity="0.15">
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#C84B2F" stroke-width="2" stroke-dasharray="8 4"/>
+      <circle cx="60" cy="60" r="30" fill="none" stroke="#E8A02A" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle cx="60" cy="60" r="10" fill="#C84B2F"/>
+      <line x1="60" y1="10" x2="60" y2="-20" stroke="#C84B2F" stroke-width="2"/>
+      <line x1="110" y1="60" x2="140" y2="60" stroke="#E8A02A" stroke-width="2"/>
+      <line x1="10" y1="60" x2="-20" y2="60" stroke="#1B7A6B" stroke-width="2"/>
+    </g>
+ 
+    <!-- Right side: abstract node graph -->
+    <g transform="translate(1000, 200)" opacity="0.12">
+      <circle cx="80" cy="40" r="8" fill="#1B7A6B"/>
+      <circle cx="140" cy="80" r="6" fill="#C84B2F"/>
+      <circle cx="60" cy="110" r="10" fill="#E8A02A"/>
+      <circle cx="110" cy="140" r="5" fill="#1B7A6B"/>
+      <line x1="80" y1="40" x2="140" y2="80" stroke="#C84B2F" stroke-width="1.5"/>
+      <line x1="80" y1="40" x2="60" y2="110" stroke="#1B7A6B" stroke-width="1.5"/>
+      <line x1="140" y1="80" x2="110" y2="140" stroke="#E8A02A" stroke-width="1.5"/>
+      <line x1="60" y1="110" x2="110" y2="140" stroke="#C84B2F" stroke-width="1.5"/>
+    </g>
+ 
+    <!-- Bottom left squiggle -->
+    <path d="M 0 620 Q 60 580 120 620 Q 180 660 240 620 Q 300 580 360 620" fill="none" stroke="#E8A02A" stroke-width="3" opacity="0.2"/>
+ 
+    <!-- Top right arc -->
+    <path d="M 900 0 Q 1000 100 1200 80" fill="none" stroke="#1B7A6B" stroke-width="3" opacity="0.2"/>
+  </svg>
+ 
+  <div class="hero-content">
+    <div class="hero-badge">✦ AI Agent Developer · MSc AI · Open to Work</div>
+ 
+    <h1>
+      Pearl<em>yn</em><br>
+      <span class="outline">Eliza</span>beth
+    </h1>
+ 
+    <p class="hero-tagline">Building agents that think. Systems that retrieve. Automations that scale.</p>
+ 
+    <p class="hero-desc">MSc Artificial Intelligence · University of Surrey. I build RAG pipelines, autonomous AI agents, and intelligent workflow automations — with a marketer's eye for business value.</p>
+ 
+    <div class="hero-pills">
+      <span class="pill pill-rust">AI Agents</span>
+      <span class="pill pill-teal">RAG Systems</span>
+      <span class="pill">n8n</span>
+      <span class="pill">LangChain</span>
+      <span class="pill">Pinecone</span>
+      <span class="pill">Ollama</span>
+      <span class="pill">Python</span>
+      <span class="pill">Claude Code</span>
+      <span class="pill">Higgsfield</span>
+    </div>
+ 
+    <div class="hero-btns">
+      <a href="#projects" class="btn-main btn-main-rust">Explore My Work →</a>
+      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" class="btn-main btn-main-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+ 
+<!-- WAVE -->
+<svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" class="wave" style="display:block;margin-top:-1px">
+  <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z" fill="#1C1206"/>
+</svg>
+ 
+<!-- ABOUT -->
+<div class="about-dark" id="about">
+  <div class="about-grid-dark">
+    <div class="about-text-dark reveal">
+      <div class="s-label">Who I Am</div>
+      <div class="s-title">AI dev with a <em>marketing</em> edge.</div>
+      <p>I'm <strong>Pearlyn Elizabeth</strong> — an AI developer who builds systems that actually solve business problems. I specialise in <strong>RAG architectures, AI agents, and workflow automations</strong> using LangChain, n8n, Pinecone, FAISS, and Ollama.</p>
+      <p>I'm not just a developer. I understand <strong>go-to-market, marketing strategy, and business positioning</strong> — which means I can build the agent and help you figure out what to build in the first place.</p>
+      <p>Actively looking for <strong>AI agent developer and solution architect roles</strong> across the UK — Surrey, London, Guildford, and beyond.</p>
+    </div>
+    <div class="about-card-stack reveal">
+      <div class="about-card">
+        <div class="about-card-icon aci-gold">🎓</div>
+        <div class="about-card-text"><strong>MSc Artificial Intelligence</strong><span>University of Surrey</span></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon aci-rust">🤖</div>
+        <div class="about-card-text"><strong>6+ AI Projects</strong><span>RAG, Agents, Automation, Analytics</span></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon aci-teal">🔗</div>
+        <div class="about-card-text"><strong>Full-Stack AI</strong><span>From retrieval pipelines to UI demos</span></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon aci-sage">📣</div>
+        <div class="about-card-text"><strong>Marketing Background</strong><span>Strategy + AI dev in one person</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="reveal">
+    <div class="s-label">Portfolio</div>
+    <div class="s-title">Projects I've <em>built.</em></div>
+  </div>
+ 
+  <div class="proj-grid">
+ 
+    <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">01</div>
+        <span class="proj-cat cat-rust">RAG · Automation</span>
+      </div>
+      <h3>RAG AI Chatbot + n8n</h3>
+      <p>End-to-end RAG system — ingests Google Drive docs, generates OpenAI embeddings, stores in Pinecone, delivers context-aware chatbot answers. Full automation pipeline.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">n8n</span><span class="proj-tag">OpenAI</span><span class="proj-tag">Pinecone</span><span class="proj-tag">RAG</span><span class="proj-tag">Vector Search</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+    <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">02</div>
+        <span class="proj-cat cat-teal">Hybrid · Local AI</span>
+      </div>
+      <h3>Hybrid RAG + Ollama</h3>
+      <p>Advanced hybrid retrieval combining FAISS dense + BM25 sparse search with CrossEncoder reranking. Fully local inference using Llama3 via Ollama — no cloud needed.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">FAISS</span><span class="proj-tag">BM25</span><span class="proj-tag">CrossEncoder</span><span class="proj-tag">Llama3</span><span class="proj-tag">Ollama</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+    <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">03</div>
+        <span class="proj-cat cat-gold">Enterprise · Security</span>
+      </div>
+      <h3>Secure Hybrid RAG Gateway</h3>
+      <p>Enterprise-grade RAG with prompt injection defence, PII detection via Microsoft Presidio, hybrid retrieval and reranking. Built for production environments.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">LangChain</span><span class="proj-tag">Presidio</span><span class="proj-tag">Streamlit</span><span class="proj-tag">FAISS</span><span class="proj-tag">Security</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+    <a href="https://github.com/Pearlyneliza/ai-wiki-rag-system" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">04</div>
+        <span class="proj-cat cat-rust">RAG · Knowledge</span>
+      </div>
+      <h3>AI Wiki RAG System</h3>
+      <p>Turns Wikipedia-style documents into a queryable AI knowledge base. Demonstrates real-world document ingestion, embedding, semantic search, and LLM-powered answers.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">RAG</span><span class="proj-tag">Python</span><span class="proj-tag">Embeddings</span><span class="proj-tag">LLM</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+    <a href="https://github.com/Pearlyneliza/Ecommerce-sales-dashboard-Excel" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">05</div>
+        <span class="proj-cat cat-gold">Analytics · BI</span>
+      </div>
+      <h3>E-Commerce Sales Dashboard</h3>
+      <p>Interactive Excel dashboard analysing 1,000+ e-commerce transactions. PivotTables, PivotCharts, Slicers — sales trends, top products, customer insights, underperformers.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">Excel</span><span class="proj-tag">PivotTables</span><span class="proj-tag">Data Analysis</span><span class="proj-tag">BI</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+    <a href="https://github.com/Pearlyneliza/Mood-productivity-analysis" target="_blank" class="proj-card reveal">
+      <div class="proj-card-top">
+        <div class="proj-num-tag">06</div>
+        <span class="proj-cat cat-teal">Data Science</span>
+      </div>
+      <h3>Mood & Productivity Analysis</h3>
+      <p>30-day wellness analytics exploring how weather, sleep, and activity impact mood and productivity. Python data science with Power BI visualisation.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">Python</span><span class="proj-tag">Power BI</span><span class="proj-tag">Jupyter</span><span class="proj-tag">Data Science</span>
+      </div>
+      <span class="proj-link">View on GitHub →</span>
+    </a>
+ 
+  </div>
+</section>
+ 
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="reveal">
+    <div class="s-label">Tech Stack</div>
+    <div class="s-title">Tools I live in.</div>
+  </div>
+  <div class="tools-bento reveal">
+    <div class="tool-card"><div class="tc-icon">🔗</div><div class="tc-name">LangChain</div><div class="tc-type">Agent Framework</div></div>
+    <div class="tool-card"><div class="tc-icon">⚡</div><div class="tc-name">n8n</div><div class="tc-type">Workflow Automation</div></div>
+    <div class="tool-card"><div class="tc-icon">🌲</div><div class="tc-name">Pinecone</div><div class="tc-type">Vector DB</div></div>
+    <div class="tool-card"><div class="tc-icon">🔍</div><div class="tc-name">FAISS</div><div class="tc-type">Vector Search</div></div>
+    <!-- Wide card -->
+    <div class="tool-card"><div class="tc-icon">🧑‍💻</div><div class="tc-name">Claude Code</div><div class="tc-type">AI Coding CLI</div></div>
+    <div class="tool-card"><div class="tc-icon">🦙</div><div class="tc-name">Ollama</div><div class="tc-type">Local LLMs</div></div>
+    <div class="tool-card"><div class="tc-icon">🤖</div><div class="tc-name">OpenAI</div><div class="tc-type">LLM & Embeddings</div></div>
+    <div class="tool-card"><div class="tc-icon">🐍</div><div class="tc-name">Python</div><div class="tc-type">Core Language</div></div>
+    <div class="tool-card"><div class="tc-icon">🖥️</div><div class="tc-name">Streamlit</div><div class="tc-type">AI Demos & UI</div></div>
+    <!-- Wide card -->
+    <div class="tool-card"><div class="tc-icon">🎬</div><div class="tc-name">Higgsfield</div><div class="tc-type">AI Video Generation</div></div>
+    <div class="tool-card"><div class="tc-icon">🛡️</div><div class="tc-name">Presidio</div><div class="tc-type">PII Detection</div></div>
+    <div class="tool-card"><div class="tc-icon">📊</div><div class="tc-name">Power BI</div><div class="tc-type">Data Visualisation</div></div>
+    <div class="tool-card"><div class="tc-icon">🤗</div><div class="tc-name">Hugging Face</div><div class="tc-type">Models & Spaces</div></div>
+    <div class="tool-card"><div class="tc-icon">🐙</div><div class="tc-name">GitHub</div><div class="tc-type">Version Control</div></div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner-grid">
+    <div class="contact-left reveal">
+      <div class="s-label">Get In Touch</div>
+      <div class="s-title">Let's build something <em>intelligent.</em></div>
+      <p>Looking for AI agent developer and solution architect roles across the UK. Surrey · London · Guildford · Remote. If you're building something smart — let's talk.</p>
+    </div>
+    <div class="contact-cards reveal">
+      <a href="mailto:pearlynelizabeth29@gmail.com" class="contact-card">
+        <div class="cc-icon cc-icon-gold">✉️</div>
+        <div class="cc-text"><strong>Email</strong><span>pearlynelizabeth29@gmail.com</span></div>
+      </a>
+      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" class="contact-card">
+        <div class="cc-icon cc-icon-rust">💼</div>
+        <div class="cc-text"><strong>LinkedIn</strong><span>Pearlyn Elizabeth</span></div>
+      </a>
+      <a href="https://github.com/Pearlyneliza" target="_blank" class="contact-card">
+        <div class="cc-icon cc-icon-teal">🐙</div>
+        <div class="cc-text"><strong>GitHub</strong><span>Pearlyneliza — 6+ projects</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <div class="footer-logo">Pearlyn <em>E.</em></div>
+  <p>AI Agent Developer · MSc AI · University of Surrey</p>
+  <p style="color:#3A2A1A">© 2025</p>
+</footer>
+ 
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
