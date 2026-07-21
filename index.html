@@ -3,607 +3,736 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pearlyn Elizabeth — AI Agent Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>Pearlyn Elizabeth — 4 Design Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600;1,9..144,900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Archivo:wght@500;600;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --cream:#FFF8EE;--dark:#1C1206;--rust:#C84B2F;--teal:#1B7A6B;
-  --gold:#E8A02A;--blush:#F2C9A0;--sky:#A8D8EA;--sage:#7BA05B;
-  --sand:#D4B896;--warm:#F5E6CE;
-}
 html{scroll-behavior:smooth}
-body{
-  background:var(--cream);color:var(--dark);
-  font-family:'Cabinet Grotesk',sans-serif;
-  overflow-x:hidden;
+body{font-family:'Instrument Sans',sans-serif;-webkit-font-smoothing:antialiased;background:#111}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* ============ TOP SWITCHER ============ */
+.switch-wrap{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:1000;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
 }
- 
-/* STARS / SPARKLE BG */
-body::before{
-  content:'✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦';
-  position:fixed;top:0;left:0;right:0;
-  font-size:0.8rem;color:rgba(200,75,47,0.08);
-  letter-spacing:2.5rem;line-height:4rem;
-  word-break:break-all;pointer-events:none;z-index:0;
-  white-space:normal;padding:1rem;
+.switcher{
+  position:relative;display:flex;background:rgba(17,15,14,0.9);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.18);border-radius:100px;padding:5px;
+  box-shadow:0 12px 40px -10px rgba(0,0,0,0.6);
 }
- 
-/* TOP BANNER */
-.banner{
-  background:var(--rust);color:var(--cream);
-  font-family:'Cabinet Grotesk',sans-serif;font-weight:700;
-  font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
-  padding:0.5rem 0;text-align:center;position:relative;z-index:50;
+.sw-ind{
+  position:absolute;top:5px;left:5px;height:calc(100% - 10px);width:var(--w,25%);
+  background:#fff;border-radius:100px;transition:transform .38s cubic-bezier(.65,0,.35,1);
+  will-change:transform;
 }
- 
-/* NAV */
-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.5rem 4rem;position:sticky;top:0;z-index:100;
-  background:rgba(255,248,238,0.92);backdrop-filter:blur(8px);
-  border-bottom:2px solid var(--dark);
+.sw-btn{
+  position:relative;z-index:1;border:none;background:none;cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;
+  color:rgba(255,255,255,0.65);padding:0.55rem 1.15rem;border-radius:100px;
+  transition:color .3s;white-space:nowrap;letter-spacing:0.02em;
 }
-.nav-logo{
-  font-family:'Fraunces',sans-serif;font-style:italic;
-  font-size:1.4rem;font-weight:900;color:var(--dark);text-decoration:none;
+.sw-btn.on{color:#111}
+.sw-label{
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(255,255,255,0.85);background:rgba(17,15,14,0.75);backdrop-filter:blur(8px);
+  padding:0.3rem 0.9rem;border-radius:100px;border:1px solid rgba(255,255,255,0.12);
 }
-.nav-logo em{color:var(--rust);font-style:normal}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{
-  font-size:0.85rem;font-weight:700;color:var(--dark);text-decoration:none;
-  letter-spacing:0.04em;text-transform:uppercase;
-  position:relative;
+@media(max-width:640px){
+  .sw-btn{padding:0.5rem 0.75rem;font-size:0.66rem}
+  .switch-wrap{width:calc(100% - 20px)}
+  .switcher{width:100%;justify-content:space-between}
 }
-.nav-links a::after{
-  content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;
-  background:var(--rust);transition:width 0.25s;
+
+/* sample panels */
+.sample{display:none;animation:sampleIn .5s ease both}
+.sample.live{display:block}
+@keyframes sampleIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* ================================================================
+   SAMPLE 1 — THE SPECIMEN  (Denton / Peregrin: 70s type foundry)
+================================================================ */
+.s1{background:#F4E8D3;color:#241505;font-family:'Fraunces',serif}
+.s1 .mono{font-family:'Space Mono',monospace}
+.s1-rule{border-top:2px solid #241505}
+.s1-head{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;
+  padding:5.2rem 3rem 1rem;font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
 }
-.nav-links a:hover::after{width:100%}
-.nav-cta{
-  background:var(--rust);color:var(--cream);
-  font-weight:800;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;
-  padding:0.65rem 1.4rem;border:2px solid var(--dark);text-decoration:none;
-  border-radius:100px;transition:background 0.2s,transform 0.15s;
+.s1-hero{padding:2.5rem 3rem 3rem;border-top:2px solid #241505;border-bottom:2px solid #241505}
+.s1-hero h1{
+  font-weight:900;font-size:clamp(3.4rem,12.5vw,11.5rem);line-height:0.86;
+  letter-spacing:-0.055em;font-variation-settings:'opsz' 144;
 }
-.nav-cta:hover{background:var(--dark);transform:translateY(-1px)}
- 
-/* HERO */
-.hero{
-  min-height:90vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:4rem 4rem 2rem;text-align:center;
-  position:relative;overflow:hidden;
+.s1-hero h1 .it{font-style:italic;color:#C1440E}
+.s1-sub{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:2.4rem;
 }
- 
-/* SVG scene background */
-.hero-scene{
-  position:absolute;inset:0;pointer-events:none;z-index:0;
+.s1-sub p{font-family:'Instrument Sans',sans-serif;font-size:1.05rem;max-width:30rem;line-height:1.55;color:#4A3216}
+.s1-sub p b{color:#241505}
+.s1-badge{
+  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+  background:#C1440E;color:#F4E8D3;padding:0.6rem 1.2rem;border-radius:100px;white-space:nowrap;
 }
- 
-/* Floating illustrated elements */
-.fl{position:absolute;animation:sway 6s ease-in-out infinite;pointer-events:none}
-.fl:nth-child(2){animation-delay:-2s}
-.fl:nth-child(3){animation-delay:-4s}
-.fl:nth-child(4){animation-delay:-1s}
-.fl:nth-child(5){animation-delay:-3s}
-@keyframes sway{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
- 
-.hero-content{position:relative;z-index:2;max-width:900px}
- 
-.hero-badge{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  background:var(--gold);border:2px solid var(--dark);border-radius:100px;
-  font-weight:800;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--dark);padding:0.4rem 1.1rem;margin-bottom:2rem;
-  box-shadow:3px 3px 0 var(--dark);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+.s1-strip{
+  display:flex;gap:0;flex-wrap:wrap;border-bottom:2px solid #241505;
 }
-@keyframes popIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}
- 
-.hero h1{
-  font-family:'Fraunces',sans-serif;font-weight:900;
-  font-size:clamp(3.5rem,10vw,9rem);line-height:0.88;
-  letter-spacing:-0.04em;color:var(--dark);
-  animation:fadeUp 0.7s 0.1s ease both;
-  margin-bottom:0.5rem;
+.s1-strip>div{
+  flex:1;min-width:180px;padding:1.2rem 3rem;font-family:'Space Mono',monospace;
+  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-right:2px solid #241505;
 }
-.hero h1 em{color:var(--rust);font-style:italic}
-.hero h1 .outline{
-  -webkit-text-stroke:3px var(--dark);color:transparent;
+.s1-strip>div:last-child{border-right:none}
+.s1-strip b{display:block;font-family:'Fraunces',serif;font-size:2rem;font-weight:900;letter-spacing:-0.02em;margin-top:0.2rem;text-transform:none}
+.s1-sec-label{
+  padding:3.4rem 3rem 1rem;font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.18em;text-transform:uppercase;color:#8A6234;
+  display:flex;justify-content:space-between;
 }
- 
-.hero-tagline{
-  font-family:'Fraunces',sans-serif;font-style:italic;
-  font-size:clamp(1.2rem,3vw,2rem);color:var(--teal);
-  font-weight:700;margin:1rem 0 1.5rem;
-  animation:fadeUp 0.7s 0.2s ease both;
+.s1-agents{border-top:2px solid #241505}
+.s1-agent{
+  display:grid;grid-template-columns:70px 1fr auto;gap:2rem;align-items:baseline;
+  padding:1.5rem 3rem;border-bottom:1px solid rgba(36,21,5,0.25);transition:background .25s,padding-left .25s;
 }
- 
-.hero-desc{
-  font-size:1.05rem;color:#5A4A35;font-weight:500;line-height:1.6;
-  max-width:520px;margin:0 auto 2.5rem;
-  animation:fadeUp 0.7s 0.3s ease both;
+.s1-agent:hover{background:#EEDCBB;padding-left:3.6rem}
+.s1-agent .pt{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:#8A6234}
+.s1-agent h3{font-weight:900;font-size:clamp(1.8rem,4.5vw,3.4rem);letter-spacing:-0.03em;line-height:1}
+.s1-agent h3 em{font-style:italic;font-weight:600;font-size:0.5em;color:#C1440E;letter-spacing:0;margin-left:0.6rem}
+.s1-agent p{font-family:'Instrument Sans',sans-serif;font-size:0.88rem;color:#4A3216;max-width:20rem;text-align:right}
+.s1-proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));border-top:2px solid #241505}
+.s1-proj{
+  border-right:1px solid rgba(36,21,5,0.25);border-bottom:1px solid rgba(36,21,5,0.25);
+  padding:2.2rem 2.4rem 2.4rem;display:flex;flex-direction:column;gap:0.9rem;
+  transition:background .25s;position:relative;
 }
- 
-.hero-pills{
-  display:flex;flex-wrap:wrap;gap:0.6rem;
-  justify-content:center;margin-bottom:2.5rem;
-  animation:fadeUp 0.7s 0.35s ease both;
+.s1-proj:hover{background:#241505;color:#F4E8D3}
+.s1-proj:hover .s1-pi{color:#F5B942}
+.s1-proj:hover p{color:#D9C6A8}
+.s1-pi{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:#C1440E}
+.s1-proj h4{font-weight:900;font-size:1.7rem;letter-spacing:-0.025em;line-height:1.05}
+.s1-proj p{font-family:'Instrument Sans',sans-serif;font-size:0.88rem;color:#4A3216;line-height:1.55;flex-grow:1}
+.s1-proj .go{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase}
+.s1-stackline{
+  padding:2rem 3rem;border-top:2px solid #241505;font-family:'Space Mono',monospace;
+  font-size:0.78rem;line-height:2.2;letter-spacing:0.04em;color:#4A3216;
 }
-.pill{
-  font-size:0.78rem;font-weight:700;padding:0.4rem 1rem;
-  border:2px solid var(--dark);border-radius:100px;
-  background:var(--warm);color:var(--dark);letter-spacing:0.03em;
-  transition:background 0.2s,transform 0.15s;
+.s1-stackline b{color:#241505;font-weight:700}
+.s1-foot{
+  background:#241505;color:#F4E8D3;padding:3.5rem 3rem;display:flex;
+  justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;
 }
-.pill:hover{background:var(--gold);transform:translateY(-2px)}
-.pill-rust{background:var(--rust);color:var(--cream)}
-.pill-teal{background:var(--teal);color:var(--cream)}
- 
-.hero-btns{
-  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp 0.7s 0.4s ease both;
+.s1-foot h2{font-weight:900;font-size:clamp(2rem,5.5vw,4.2rem);letter-spacing:-0.04em;line-height:0.95}
+.s1-foot h2 em{font-style:italic;color:#F5B942}
+.s1-foot-links{display:flex;flex-direction:column;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.8rem}
+.s1-foot-links a{border-bottom:1px solid rgba(244,232,211,0.4);padding-bottom:2px;width:fit-content;transition:color .2s,border-color .2s}
+.s1-foot-links a:hover{color:#F5B942;border-color:#F5B942}
+@media(max-width:760px){
+  .s1-head,.s1-hero,.s1-sec-label,.s1-stackline,.s1-foot{padding-left:1.3rem;padding-right:1.3rem}
+  .s1-agent{grid-template-columns:1fr;gap:0.4rem;padding:1.3rem}
+  .s1-agent p{text-align:left;max-width:100%}
+  .s1-strip>div{padding:1rem 1.3rem}
 }
-.btn-main{
-  font-weight:800;font-size:0.9rem;letter-spacing:0.04em;text-transform:uppercase;
-  padding:1rem 2.2rem;border:2px solid var(--dark);border-radius:100px;
-  text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;
-  display:inline-flex;align-items:center;gap:0.5rem;
+
+/* ================================================================
+   SAMPLE 2 — N° EDITORIAL  (Wembi: clean, colourful, numbered)
+================================================================ */
+.s2{background:#F5F4EF;color:#101418;font-family:'Instrument Sans',sans-serif}
+.s2 .mono{font-family:'Space Mono',monospace}
+.s2-nav{
+  display:flex;justify-content:space-between;align-items:center;padding:5.2rem 3rem 0;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;
 }
-.btn-main-rust{background:var(--rust);color:var(--cream);box-shadow:4px 4px 0 var(--dark)}
-.btn-main-rust:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
-.btn-main-outline{background:transparent;color:var(--dark);box-shadow:4px 4px 0 var(--teal)}
-.btn-main-outline:hover{background:var(--warm);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
- 
-/* WAVE DIVIDER */
-.wave{width:100%;display:block;fill:var(--dark)}
- 
-/* ABOUT — dark section */
-.about-dark{background:var(--dark);color:var(--cream);padding:5rem 4rem}
-.about-dark .s-label{color:var(--gold);font-weight:800;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem}
-.about-dark .s-title{
-  font-family:'Fraunces',sans-serif;font-size:clamp(2rem,5vw,4rem);
-  font-weight:900;letter-spacing:-0.04em;line-height:0.95;
-  color:var(--cream);margin-bottom:3rem;
+.s2-hero{padding:4rem 3rem 4.5rem;position:relative;overflow:hidden}
+.s2-no{
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;
+  color:#2242FF;margin-bottom:1.2rem;display:block;
 }
-.about-dark .s-title em{color:var(--gold);font-style:italic}
-.about-grid-dark{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.about-text-dark p{color:#C4B49E;font-size:1rem;line-height:1.75;margin-bottom:1.25rem;font-weight:500}
-.about-text-dark p strong{color:var(--cream)}
-.about-card-stack{display:flex;flex-direction:column;gap:1rem}
-.about-card{
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
-  border-radius:16px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem;
-  transition:background 0.2s;
+.s2-hero h1{
+  font-weight:700;font-size:clamp(2.8rem,7.6vw,6.6rem);line-height:0.98;letter-spacing:-0.045em;max-width:15ch;
 }
-.about-card:hover{background:rgba(255,255,255,0.08)}
-.about-card-icon{
-  width:48px;height:48px;border-radius:12px;display:flex;
-  align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;
+.s2-hero h1 .hl{
+  display:inline-block;background:#C8F169;padding:0 0.18em;border-radius:0.14em;
+  transform:rotate(-1.2deg);
 }
-.aci-gold{background:rgba(232,160,42,0.2)}
-.aci-rust{background:rgba(200,75,47,0.2)}
-.aci-teal{background:rgba(27,122,107,0.2)}
-.aci-sage{background:rgba(123,160,91,0.2)}
-.about-card-text strong{display:block;font-weight:800;font-size:0.95rem;color:var(--cream);margin-bottom:0.2rem}
-.about-card-text span{font-size:0.82rem;color:#9A8A78}
- 
-/* PROJECTS */
-.projects-section{padding:5rem 4rem;background:var(--warm)}
-.s-label{font-weight:800;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rust);margin-bottom:0.75rem}
-.s-title{
-  font-family:'Fraunces',sans-serif;font-size:clamp(2rem,5vw,4rem);
-  font-weight:900;letter-spacing:-0.04em;line-height:0.95;
-  color:var(--dark);margin-bottom:3rem;
+.s2-hero h1 .bl{color:#2242FF}
+.s2-hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:3rem}
+.s2-hero-foot p{max-width:26rem;font-size:1.02rem;line-height:1.6;color:#4B5563}
+.s2-cta{
+  display:inline-flex;align-items:center;gap:0.7rem;background:#101418;color:#F5F4EF;
+  font-family:'Space Mono',monospace;font-size:0.76rem;padding:0.95rem 1.7rem;border-radius:100px;
+  transition:background .25s,transform .2s;
 }
-.s-title em{color:var(--rust);font-style:italic}
- 
-.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-.proj-card{
-  background:var(--cream);border:2px solid var(--dark);border-radius:20px;
-  padding:2rem;text-decoration:none;color:inherit;display:block;
-  transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;
+.s2-cta:hover{background:#2242FF;transform:translateY(-2px)}
+.s2-cta .c{width:8px;height:8px;border-radius:50%;background:#C8F169}
+.s2-marq{
+  overflow:hidden;border-top:1.5px solid #101418;border-bottom:1.5px solid #101418;
+  background:#2242FF;color:#F5F4EF;padding:0.85rem 0;
 }
-.proj-card::before{
-  content:'';position:absolute;inset:0;border-radius:18px;
-  background:linear-gradient(135deg,transparent 60%,rgba(200,75,47,0.05));
-  opacity:0;transition:opacity 0.3s;
+.s2-marq-in{display:flex;gap:3rem;width:max-content;animation:s2m 22s linear infinite;font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase}
+@keyframes s2m{to{transform:translateX(-50%)}}
+.s2-sec{padding:5rem 3rem}
+.s2-sec-head{display:flex;align-items:baseline;gap:1.4rem;margin-bottom:3rem;flex-wrap:wrap}
+.s2-sec-head .n{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;color:#2242FF}
+.s2-sec-head h2{font-weight:700;font-size:clamp(1.9rem,4.5vw,3.4rem);letter-spacing:-0.035em}
+.s2-fleet{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem}
+.s2-agent{
+  background:#FFFFFF;border:1.5px solid #101418;border-radius:18px;padding:1.6rem;
+  display:flex;flex-direction:column;gap:0.7rem;min-height:215px;
+  transition:transform .25s,box-shadow .25s;position:relative;
 }
-.proj-card:hover{transform:translateY(-4px) rotate(-0.5deg);box-shadow:8px 8px 0 var(--dark)}
-.proj-card:hover::before{opacity:1}
- 
-.proj-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
-.proj-num-tag{
-  font-family:'Fraunces',sans-serif;font-style:italic;font-size:2.5rem;
-  font-weight:900;color:rgba(28,18,6,0.12);line-height:1;
+.s2-agent:hover{transform:translateY(-6px);box-shadow:0 14px 0 -6px var(--ac,#2242FF)}
+.s2-agent .tag{
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:#101418;background:var(--ac,#C8F169);width:fit-content;padding:0.28rem 0.7rem;border-radius:100px;
 }
-.proj-cat{
-  font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
-  padding:0.3rem 0.8rem;border-radius:100px;border:2px solid;
+.s2-agent h3{font-weight:700;font-size:1.5rem;letter-spacing:-0.02em;margin-top:auto}
+.s2-agent p{font-size:0.85rem;color:#4B5563;line-height:1.5}
+.s2-projwrap{background:#101418;color:#F5F4EF}
+.s2-projwrap .s2-sec-head .n{color:#C8F169}
+.s2-proj{
+  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:2rem;
+  padding:1.7rem 0;border-bottom:1px solid rgba(245,244,239,0.18);transition:padding-left .25s;
 }
-.cat-rust{background:rgba(200,75,47,0.1);border-color:var(--rust);color:var(--rust)}
-.cat-teal{background:rgba(27,122,107,0.1);border-color:var(--teal);color:var(--teal)}
-.cat-gold{background:rgba(232,160,42,0.1);border-color:var(--gold);color:#8A5F0D}
- 
-.proj-card h3{
-  font-family:'Fraunces',sans-serif;font-size:1.4rem;font-weight:900;
-  letter-spacing:-0.02em;line-height:1.1;color:var(--dark);margin-bottom:0.75rem;
+.s2-proj:hover{padding-left:1.2rem}
+.s2-proj:hover h3{color:#C8F169}
+.s2-proj .idx{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(245,244,239,0.5)}
+.s2-proj h3{font-weight:700;font-size:clamp(1.3rem,3.2vw,2.1rem);letter-spacing:-0.025em;transition:color .25s}
+.s2-proj .meta{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;color:rgba(245,244,239,0.55);text-align:right;text-transform:uppercase}
+.s2-stack{display:flex;flex-wrap:wrap;gap:0.55rem}
+.s2-chip{
+  font-family:'Space Mono',monospace;font-size:0.72rem;border:1.5px solid #101418;
+  padding:0.45rem 1rem;border-radius:100px;background:#fff;transition:background .2s,color .2s;
 }
-.proj-card p{font-size:0.875rem;color:#6A5840;line-height:1.65;margin-bottom:1.25rem;font-weight:500}
-.proj-stack{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem}
-.proj-tag{
-  font-size:0.68rem;font-weight:700;padding:0.25rem 0.65rem;
-  border-radius:100px;background:var(--blush);color:var(--dark);border:1.5px solid var(--sand);
+.s2-chip:hover{background:#2242FF;color:#fff;border-color:#2242FF}
+.s2-chip.lime{background:#C8F169}
+.s2-chip.lime:hover{background:#2242FF;color:#fff}
+.s2-contact{
+  margin:0 3rem 5rem;background:#2242FF;color:#F5F4EF;border-radius:26px;
+  padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;
 }
-.proj-link{
-  font-weight:800;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;
-  color:var(--rust);display:inline-flex;align-items:center;gap:0.4rem;
-  transition:gap 0.2s;
+.s2-contact::before{content:'N°005';position:absolute;top:1.4rem;left:1.8rem;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.16em;color:rgba(245,244,239,0.6)}
+.s2-contact h2{font-weight:700;font-size:clamp(2rem,5.5vw,4rem);letter-spacing:-0.04em;line-height:1.02;margin-bottom:2rem}
+.s2-contact h2 .hl{background:#C8F169;color:#101418;padding:0 0.16em;border-radius:0.14em;display:inline-block;transform:rotate(-1deg)}
+.s2-contact-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.s2-cbtn{
+  font-family:'Space Mono',monospace;font-size:0.76rem;background:#F5F4EF;color:#101418;
+  padding:0.9rem 1.6rem;border-radius:100px;transition:transform .2s,background .2s;
 }
-.proj-link:hover{gap:0.7rem}
- 
-/* TOOLS */
-.tools-section{padding:5rem 4rem;background:var(--cream)}
-.tools-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.tool-card{
-  background:var(--warm);border:2px solid var(--dark);border-radius:16px;
-  padding:1.5rem;transition:transform 0.2s,background 0.2s;
-  display:flex;flex-direction:column;gap:0.5rem;
+.s2-cbtn:hover{transform:translateY(-2px);background:#C8F169}
+@media(max-width:760px){
+  .s2-nav,.s2-hero,.s2-sec{padding-left:1.3rem;padding-right:1.3rem}
+  .s2-contact{margin:0 1.3rem 4rem;padding:3rem 1.5rem}
+  .s2-proj{grid-template-columns:1fr;gap:0.4rem}
+  .s2-proj .meta{text-align:left}
 }
-.tool-card:hover{transform:translateY(-3px) rotate(-1deg);background:var(--gold)}
-.tool-card:nth-child(5){grid-column:span 2;background:var(--rust);border-color:var(--dark)}
-.tool-card:nth-child(5) .tc-name,.tool-card:nth-child(5) .tc-type{color:var(--cream)}
-.tool-card:nth-child(5) .tc-icon{font-size:2.5rem}
-.tool-card:nth-child(10){grid-column:span 2;background:var(--teal);border-color:var(--dark)}
-.tool-card:nth-child(10) .tc-name,.tool-card:nth-child(10) .tc-type{color:var(--cream)}
-.tc-icon{font-size:2rem}
-.tc-name{font-family:'Fraunces',sans-serif;font-size:1rem;font-weight:900;letter-spacing:-0.01em;color:var(--dark)}
-.tc-type{font-size:0.72rem;font-weight:700;color:#8A7860;letter-spacing:0.04em;text-transform:uppercase}
- 
-/* CONTACT */
-.contact-section{
-  padding:5rem 4rem;background:var(--dark);
-  position:relative;overflow:hidden;
+
+/* ================================================================
+   SAMPLE 3 — POP POSTER  (colour-blocked, loud, brutalist-playful)
+================================================================ */
+.s3{background:#FFF7EA;color:#161210;font-family:'Archivo',sans-serif}
+.s3 .mono{font-family:'Space Mono',monospace}
+.s3-hero{
+  background:#2438F7;color:#FFF7EA;padding:7rem 3rem 4rem;position:relative;overflow:hidden;
+  border-bottom:4px solid #161210;
 }
-.contact-section::before{
-  content:'';position:absolute;
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,160,42,0.08),transparent 70%);
-  top:-200px;right:-100px;pointer-events:none;
+.s3-hero h1{
+  font-weight:900;font-size:clamp(3.2rem,11.5vw,10rem);line-height:0.88;letter-spacing:-0.04em;
+  text-transform:uppercase;
 }
-.contact-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
-.contact-left .s-label{color:var(--gold)}
-.contact-left .s-title{color:var(--cream)}
-.contact-left .s-title em{color:var(--gold)}
-.contact-left p{color:#9A8A78;font-size:1rem;line-height:1.7;margin-top:1rem}
- 
-.contact-cards{display:flex;flex-direction:column;gap:1rem}
-.contact-card{
-  display:flex;align-items:center;gap:1.25rem;
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;padding:1.25rem 1.5rem;text-decoration:none;color:var(--cream);
-  transition:background 0.2s,transform 0.15s,border-color 0.2s;font-weight:500;
+.s3-hero h1 .out{
+  color:transparent;-webkit-text-stroke:2.5px #FFF7EA;
 }
-.contact-card:hover{background:rgba(232,160,42,0.1);border-color:var(--gold);transform:translateX(6px)}
-.cc-icon{
-  width:42px;height:42px;border-radius:10px;display:flex;
-  align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+.s3-hero h1 .yel{color:#FFD23F}
+.s3-hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:2.6rem}
+.s3-hero-row p{font-weight:500;font-size:1.05rem;max-width:28rem;line-height:1.55;color:rgba(255,247,234,0.9)}
+.s3-stickers{display:flex;gap:0.7rem;flex-wrap:wrap}
+.s3-stick{
+  font-family:'Space Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;
+  background:#FFF7EA;color:#161210;border:2.5px solid #161210;border-radius:100px;
+  padding:0.5rem 1.1rem;box-shadow:3px 3px 0 #161210;transform:rotate(var(--r,0deg));
+  transition:transform .2s;
 }
-.cc-icon-gold{background:rgba(232,160,42,0.2)}
-.cc-icon-rust{background:rgba(200,75,47,0.2)}
-.cc-icon-teal{background:rgba(27,122,107,0.2)}
-.cc-text strong{display:block;font-weight:800;font-size:0.9rem;margin-bottom:0.15rem}
-.cc-text span{font-size:0.78rem;color:#7A6A58}
- 
-/* FOOTER */
-footer{
-  background:var(--dark);border-top:1px solid rgba(255,255,255,0.08);
-  padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;
+.s3-stick:hover{transform:rotate(0) scale(1.05)}
+.s3-stick.p{background:#FF5C39;color:#161210}
+.s3-stick.y{background:#FFD23F}
+.s3-tick{
+  background:#FFD23F;border-bottom:4px solid #161210;overflow:hidden;padding:0.8rem 0;
 }
-.footer-logo{font-family:'Fraunces',sans-serif;font-style:italic;font-size:1.1rem;font-weight:900;color:var(--cream)}
-.footer-logo em{color:var(--gold);font-style:normal}
-footer p{color:#5A4A35;font-size:0.8rem}
- 
-/* REVEAL */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s,transform 0.7s}
-.reveal.visible{opacity:1;transform:none}
- 
-@media(max-width:900px){
-  nav{padding:1rem 1.5rem}
-  .nav-links{display:none}
-  .hero,.about-dark,.projects-section,.tools-section,.contact-section{padding:3rem 1.5rem}
-  .about-grid-dark,.contact-inner-grid,.proj-grid{grid-template-columns:1fr}
-  .tools-bento{grid-template-columns:1fr 1fr}
-  .tool-card:nth-child(5),.tool-card:nth-child(10){grid-column:span 1}
-  footer{padding:1.5rem;flex-direction:column;gap:0.5rem;text-align:center}
+.s3-tick-in{
+  display:flex;gap:2.6rem;width:max-content;animation:s3t 18s linear infinite;
+  font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:0.06em;
+}
+@keyframes s3t{to{transform:translateX(-50%)}}
+.s3-fleet{padding:4.5rem 3rem;background:#FFF7EA}
+.s3-h2{
+  font-weight:900;font-size:clamp(2.2rem,6vw,4.6rem);letter-spacing:-0.035em;text-transform:uppercase;
+  line-height:0.94;margin-bottom:2.6rem;
+}
+.s3-h2 em{font-style:normal;color:#2438F7}
+.s3-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem}
+.s3-card{
+  border:3px solid #161210;border-radius:16px;padding:1.5rem;min-height:230px;
+  display:flex;flex-direction:column;background:var(--bg,#fff);color:var(--c,#161210);
+  box-shadow:6px 6px 0 #161210;transition:transform .2s,box-shadow .2s;
+}
+.s3-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 #161210}
+.s3-card .id{font-family:'Space Mono',monospace;font-size:0.66rem;font-weight:700;letter-spacing:0.1em;opacity:0.75}
+.s3-card h3{font-weight:900;font-size:1.75rem;letter-spacing:-0.02em;text-transform:uppercase;margin:0.5rem 0 0.6rem}
+.s3-card p{font-size:0.86rem;font-weight:500;line-height:1.5;margin-top:auto}
+.s3-projwrap{background:#FF5C39;border-top:4px solid #161210;border-bottom:4px solid #161210;padding:4.5rem 3rem}
+.s3-projwrap .s3-h2 em{color:#FFF7EA}
+.s3-proj{
+  background:#FFF7EA;border:3px solid #161210;border-radius:16px;box-shadow:6px 6px 0 #161210;
+  padding:1.8rem;display:flex;flex-direction:column;gap:0.7rem;transition:transform .2s,box-shadow .2s;
+}
+.s3-proj:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 #161210}
+.s3-projgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem}
+.s3-ptag{font-family:'Space Mono',monospace;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#FFD23F;border:2px solid #161210;width:fit-content;padding:0.25rem 0.7rem;border-radius:100px}
+.s3-proj h4{font-weight:900;font-size:1.45rem;letter-spacing:-0.02em;text-transform:uppercase;line-height:1.05}
+.s3-proj p{font-size:0.86rem;font-weight:500;line-height:1.55;flex-grow:1}
+.s3-proj .go{font-family:'Space Mono',monospace;font-weight:700;font-size:0.72rem;letter-spacing:0.08em}
+.s3-foot{background:#161210;color:#FFF7EA;padding:4.5rem 3rem;text-align:center}
+.s3-foot h2{font-weight:900;font-size:clamp(2.4rem,8vw,6rem);letter-spacing:-0.04em;text-transform:uppercase;line-height:0.92;margin-bottom:2.2rem}
+.s3-foot h2 .yel{color:#FFD23F}
+.s3-foot-row{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.s3-fbtn{
+  font-family:'Space Mono',monospace;font-weight:700;font-size:0.78rem;
+  background:#FFF7EA;color:#161210;border:2.5px solid #FFF7EA;border-radius:100px;
+  padding:0.9rem 1.7rem;transition:background .2s,color .2s,transform .2s;
+}
+.s3-fbtn:hover{background:#2438F7;color:#FFF7EA;border-color:#2438F7;transform:translateY(-2px)}
+@media(max-width:760px){
+  .s3-hero{padding:6.4rem 1.3rem 3rem}
+  .s3-fleet,.s3-projwrap,.s3-foot{padding-left:1.3rem;padding-right:1.3rem}
+}
+
+/* ================================================================
+   SAMPLE 4 — DUSK BLOOM  (plum base, sunset gradients, glass)
+================================================================ */
+.s4{background:#1A0B24;color:#FFF2E6;font-family:'Instrument Sans',sans-serif;position:relative;overflow:hidden}
+.s4 .mono{font-family:'Space Mono',monospace}
+.s4-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.55;pointer-events:none}
+.s4-o1{width:520px;height:520px;background:radial-gradient(circle,#FF2E93,transparent 70%);top:-160px;right:-120px;animation:s4f 9s ease-in-out infinite}
+.s4-o2{width:460px;height:460px;background:radial-gradient(circle,#FF7A3D,transparent 70%);top:34%;left:-180px;animation:s4f 11s ease-in-out infinite reverse}
+.s4-o3{width:400px;height:400px;background:radial-gradient(circle,#7A3DF5,transparent 70%);bottom:6%;right:-100px;animation:s4f 13s ease-in-out infinite}
+@keyframes s4f{0%,100%{transform:translateY(0)}50%{transform:translateY(-36px)}}
+.s4-inner{position:relative;z-index:1}
+.s4-hero{padding:7.5rem 3rem 4rem;text-align:center}
+.s4-eyebrow{
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:#FFB47E;display:inline-flex;align-items:center;gap:0.7rem;margin-bottom:1.6rem;
+}
+.s4-eyebrow::before,.s4-eyebrow::after{content:'';width:26px;height:1px;background:#FFB47E}
+.s4-hero h1{
+  font-family:'Fraunces',serif;font-weight:600;font-style:italic;
+  font-size:clamp(3rem,9vw,7.6rem);line-height:0.98;letter-spacing:-0.03em;
+}
+.s4-hero h1 .g{
+  background:linear-gradient(95deg,#FF2E93 5%,#FF7A3D 45%,#FFC24B 90%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-style:normal;font-weight:900;
+}
+.s4-hero p{max-width:32rem;margin:1.8rem auto 2.4rem;font-size:1.05rem;line-height:1.65;color:#D9BFC9}
+.s4-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.s4-btn{
+  font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.95rem 1.8rem;border-radius:100px;
+  transition:transform .2s,box-shadow .25s;
+}
+.s4-btn.p{background:linear-gradient(95deg,#FF2E93,#FF7A3D);color:#1A0B24;font-weight:700}
+.s4-btn.p:hover{transform:translateY(-2px);box-shadow:0 12px 34px -8px rgba(255,80,120,0.6)}
+.s4-btn.o{border:1px solid rgba(255,242,230,0.35);color:#FFF2E6}
+.s4-btn.o:hover{border-color:#FFC24B;color:#FFC24B}
+.s4-orbit{max-width:560px;margin:4rem auto 0}
+.s4-orbit svg{width:100%;height:auto;display:block}
+.s4-spin{transform-origin:280px 170px;animation:s4r 30s linear infinite}
+@keyframes s4r{to{transform:rotate(360deg)}}
+.s4-counter{transform-origin:center;animation:s4r 30s linear infinite reverse}
+.s4-sec{padding:4.5rem 3rem}
+.s4-sec-head{text-align:center;margin-bottom:3rem}
+.s4-sec-head h2{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(1.9rem,4.6vw,3.4rem);letter-spacing:-0.02em}
+.s4-sec-head h2 b{
+  font-style:normal;font-weight:900;
+  background:linear-gradient(95deg,#FF7A3D,#FFC24B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.s4-glass-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;max-width:1100px;margin:0 auto}
+.s4-glass{
+  background:rgba(255,242,230,0.05);border:1px solid rgba(255,242,230,0.14);
+  border-radius:20px;padding:1.8rem;backdrop-filter:blur(10px);
+  transition:transform .25s,border-color .25s,background .25s;display:flex;flex-direction:column;gap:0.8rem;
+}
+.s4-glass:hover{transform:translateY(-5px);border-color:rgba(255,180,126,0.5);background:rgba(255,242,230,0.08)}
+.s4-glass .t{
+  font-family:'Space Mono',monospace;font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:#FFB47E;
+}
+.s4-glass h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;letter-spacing:-0.01em}
+.s4-glass p{font-size:0.88rem;color:#D9BFC9;line-height:1.6;flex-grow:1}
+.s4-glass .go{font-family:'Space Mono',monospace;font-size:0.72rem;color:#FFC24B}
+.s4-chips{display:flex;flex-wrap:wrap;gap:0.55rem;justify-content:center;max-width:820px;margin:0 auto}
+.s4-chip{
+  font-family:'Space Mono',monospace;font-size:0.72rem;color:#FFF2E6;
+  border:1px solid rgba(255,242,230,0.22);padding:0.45rem 1.05rem;border-radius:100px;
+  transition:border-color .2s,color .2s;
+}
+.s4-chip:hover{border-color:#FF7A3D;color:#FFB47E}
+.s4-contact{padding:5rem 3rem 6rem;text-align:center}
+.s4-contact h2{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(2.2rem,6.5vw,4.8rem);line-height:1;letter-spacing:-0.02em;margin-bottom:2.4rem}
+.s4-contact h2 .g{background:linear-gradient(95deg,#FF2E93,#FFC24B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;font-weight:900}
+@media(max-width:760px){
+  .s4-hero,.s4-sec,.s4-contact{padding-left:1.3rem;padding-right:1.3rem}
 }
 </style>
 </head>
 <body>
- 
-<!-- BANNER -->
-<div class="banner">✦ Open to AI Agent & Solution Architect Roles · UK ✦</div>
- 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Pearlyn <em>E.</em></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#tools">Stack</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="mailto:pearlynelizabeth29@gmail.com" class="nav-cta">Hire Me ↗</a>
-</nav>
- 
-<!-- HERO -->
-<section class="hero">
- 
-  <!-- Illustrated floating SVG decorations -->
-  <svg class="hero-scene" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <!-- Stars -->
-    <text x="80" y="120" font-size="18" fill="#E8A02A" opacity="0.6">✦</text>
-    <text x="200" y="60" font-size="12" fill="#C84B2F" opacity="0.4">✧</text>
-    <text x="1050" y="100" font-size="20" fill="#1B7A6B" opacity="0.5">✦</text>
-    <text x="1100" y="200" font-size="10" fill="#E8A02A" opacity="0.4">✧</text>
-    <text x="50" y="500" font-size="14" fill="#C84B2F" opacity="0.3">✦</text>
-    <text x="1130" y="560" font-size="16" fill="#E8A02A" opacity="0.4">✧</text>
-    <text x="600" y="40" font-size="12" fill="#1B7A6B" opacity="0.35">✦</text>
- 
-    <!-- Left side: abstract brain/circuit blob -->
-    <g transform="translate(60, 250)" opacity="0.15">
-      <circle cx="60" cy="60" r="50" fill="none" stroke="#C84B2F" stroke-width="2" stroke-dasharray="8 4"/>
-      <circle cx="60" cy="60" r="30" fill="none" stroke="#E8A02A" stroke-width="1.5" stroke-dasharray="4 4"/>
-      <circle cx="60" cy="60" r="10" fill="#C84B2F"/>
-      <line x1="60" y1="10" x2="60" y2="-20" stroke="#C84B2F" stroke-width="2"/>
-      <line x1="110" y1="60" x2="140" y2="60" stroke="#E8A02A" stroke-width="2"/>
-      <line x1="10" y1="60" x2="-20" y2="60" stroke="#1B7A6B" stroke-width="2"/>
-    </g>
- 
-    <!-- Right side: abstract node graph -->
-    <g transform="translate(1000, 200)" opacity="0.12">
-      <circle cx="80" cy="40" r="8" fill="#1B7A6B"/>
-      <circle cx="140" cy="80" r="6" fill="#C84B2F"/>
-      <circle cx="60" cy="110" r="10" fill="#E8A02A"/>
-      <circle cx="110" cy="140" r="5" fill="#1B7A6B"/>
-      <line x1="80" y1="40" x2="140" y2="80" stroke="#C84B2F" stroke-width="1.5"/>
-      <line x1="80" y1="40" x2="60" y2="110" stroke="#1B7A6B" stroke-width="1.5"/>
-      <line x1="140" y1="80" x2="110" y2="140" stroke="#E8A02A" stroke-width="1.5"/>
-      <line x1="60" y1="110" x2="110" y2="140" stroke="#C84B2F" stroke-width="1.5"/>
-    </g>
- 
-    <!-- Bottom left squiggle -->
-    <path d="M 0 620 Q 60 580 120 620 Q 180 660 240 620 Q 300 580 360 620" fill="none" stroke="#E8A02A" stroke-width="3" opacity="0.2"/>
- 
-    <!-- Top right arc -->
-    <path d="M 900 0 Q 1000 100 1200 80" fill="none" stroke="#1B7A6B" stroke-width="3" opacity="0.2"/>
-  </svg>
- 
-  <div class="hero-content">
-    <div class="hero-badge">✦ AI Agent Developer · MSc AI · Open to Work</div>
- 
-    <h1>
-      Pearl<em>yn</em><br>
-      <span class="outline">Eliza</span>beth
-    </h1>
- 
-    <p class="hero-tagline">Building agents that think. Systems that retrieve. Automations that scale.</p>
- 
-    <p class="hero-desc">MSc Artificial Intelligence · University of Surrey. I build RAG pipelines, autonomous AI agents, and intelligent workflow automations — with a marketer's eye for business value.</p>
- 
-    <div class="hero-pills">
-      <span class="pill pill-rust">AI Agents</span>
-      <span class="pill pill-teal">RAG Systems</span>
-      <span class="pill">n8n</span>
-      <span class="pill">LangChain</span>
-      <span class="pill">Pinecone</span>
-      <span class="pill">Ollama</span>
-      <span class="pill">Python</span>
-      <span class="pill">Claude Code</span>
-      <span class="pill">Higgsfield</span>
-    </div>
- 
-    <div class="hero-btns">
-      <a href="#projects" class="btn-main btn-main-rust">Explore My Work →</a>
-      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" class="btn-main btn-main-outline">LinkedIn ↗</a>
+
+<!-- ===== SLIDING SWITCHER ===== -->
+<div class="switch-wrap">
+  <div class="switcher" role="tablist" aria-label="Design concepts">
+    <div class="sw-ind" id="swInd"></div>
+    <button class="sw-btn on" data-i="0" role="tab" aria-selected="true">01</button>
+    <button class="sw-btn" data-i="1" role="tab" aria-selected="false">02</button>
+    <button class="sw-btn" data-i="2" role="tab" aria-selected="false">03</button>
+    <button class="sw-btn" data-i="3" role="tab" aria-selected="false">04</button>
+  </div>
+  <span class="sw-label" id="swLabel">The Specimen — 70s type foundry</span>
+</div>
+
+<!-- ================================================================
+     SAMPLE 1 — THE SPECIMEN
+================================================================ -->
+<div class="sample live s1" id="sample0">
+  <div class="s1-head">
+    <span>Pearlyn Elizabeth — Overview</span>
+    <span>AI Systems Architect</span>
+    <span>Est. MMXXVI</span>
+  </div>
+
+  <div class="s1-hero">
+    <h1 class="rv">Pearlyn<br><span class="it">Elizabeth</span></h1>
+    <div class="s1-sub rv">
+      <p>An AI systems architect full of warmth — bringing <b>agentic systems, production RAG and cloud infrastructure</b> to businesses that need them to actually work. MSc Artificial Intelligence, University of Surrey.</p>
+      <span class="s1-badge">Open to AI Architect Roles — UK</span>
     </div>
   </div>
-</section>
- 
-<!-- WAVE -->
-<svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" class="wave" style="display:block;margin-top:-1px">
-  <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z" fill="#1C1206"/>
-</svg>
- 
-<!-- ABOUT -->
-<div class="about-dark" id="about">
-  <div class="about-grid-dark">
-    <div class="about-text-dark reveal">
-      <div class="s-label">Who I Am</div>
-      <div class="s-title">AI dev with a <em>marketing</em> edge.</div>
-      <p>I'm <strong>Pearlyn Elizabeth</strong> — an AI developer who builds systems that actually solve business problems. I specialise in <strong>RAG architectures, AI agents, and workflow automations</strong> using LangChain, n8n, Pinecone, FAISS, and Ollama.</p>
-      <p>I'm not just a developer. I understand <strong>go-to-market, marketing strategy, and business positioning</strong> — which means I can build the agent and help you figure out what to build in the first place.</p>
-      <p>Actively looking for <strong>AI agent developer and solution architect roles</strong> and beyond.</p>
-    </div>
-    <div class="about-card-stack reveal">
-      <div class="about-card">
-        <div class="about-card-icon aci-gold">🎓</div>
-        <div class="about-card-text"><strong>MSc Artificial Intelligence</strong><span>University of Surrey</span></div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon aci-rust">🤖</div>
-        <div class="about-card-text"><strong>6+ AI Projects</strong><span>RAG, Agents, Automation, Analytics</span></div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon aci-teal">🔗</div>
-        <div class="about-card-text"><strong>Full-Stack AI</strong><span>From retrieval pipelines to UI demos</span></div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon aci-sage">📣</div>
-        <div class="about-card-text"><strong>Marketing Background</strong><span>Strategy + AI dev in one person</span></div>
-      </div>
+
+  <div class="s1-strip">
+    <div class="rv">Agents<b>05</b></div>
+    <div class="rv">Systems shipped<b>06+</b></div>
+    <div class="rv">Cloud<b>GCP · Vertex</b></div>
+    <div class="rv">Retrieval<b>Hybrid</b></div>
+  </div>
+
+  <div class="s1-sec-label"><span>Pearlyn OS — The Family</span><span>18 PT</span></div>
+  <div class="s1-agents">
+    <div class="s1-agent rv"><span class="pt">AGT 00</span><h3>Hermes<em>Orchestrator</em></h3><p>Parses intent, plans the task graph, routes work across the fleet.</p></div>
+    <div class="s1-agent rv"><span class="pt">AGT 01</span><h3>OpenClaw<em>Research</em></h3><p>Autonomous web research and structured extraction into the RAG layer.</p></div>
+    <div class="s1-agent rv"><span class="pt">AGT 02</span><h3>Scout<em>Lead Gen</em></h3><p>Sources, scores and enriches prospects as a reusable pipeline.</p></div>
+    <div class="s1-agent rv"><span class="pt">AGT 03</span><h3>Forge<em>Deploy</em></h3><p>Turns approved workflows into live n8n automations on GCP.</p></div>
+    <div class="s1-agent rv"><span class="pt">AGT 04</span><h3>Sentinel<em>Monitor</em></h3><p>Watches runs, tracks failures, keeps production observable.</p></div>
+  </div>
+
+  <div class="s1-sec-label"><span>Selected Systems</span><span>Cut in six styles</span></div>
+  <div class="s1-proj-grid">
+    <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s1-proj rv">
+      <span class="s1-pi">Cloud · Vertex AI</span>
+      <h4>Production RAG on Google Cloud</h4>
+      <p>Hybrid retrieval served through Vertex AI and Gemini endpoints, containerised with Docker on a GCP VPS over SSH.</p>
+      <span class="go">View →</span>
+    </a>
+    <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s1-proj rv">
+      <span class="s1-pi">Enterprise · Security</span>
+      <h4>Secure Hybrid RAG Gateway</h4>
+      <p>Prompt-injection defence and Presidio PII detection over hybrid retrieval and reranking.</p>
+      <span class="go">View →</span>
+    </a>
+    <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s1-proj rv">
+      <span class="s1-pi">Local Inference</span>
+      <h4>Hybrid RAG + Ollama</h4>
+      <p>FAISS dense + BM25 sparse with CrossEncoder reranking, fully local on Llama 3.</p>
+      <span class="go">View →</span>
+    </a>
+    <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s1-proj rv">
+      <span class="s1-pi">RAG · Automation</span>
+      <h4>RAG Chatbot + n8n</h4>
+      <p>Drive ingestion, OpenAI embeddings, Pinecone storage — orchestrated hands-off in n8n.</p>
+      <span class="go">View →</span>
+    </a>
+  </div>
+
+  <div class="s1-stackline rv">
+    <b>Stack —</b> Vertex AI · Gemini · GCP · VPS/SSH · Docker · LangChain · n8n · Pinecone · FAISS · BM25 · CrossEncoder · Ollama · Llama 3 · OpenAI · Presidio · FastAPI · Python · Claude Code · Claude Cowork
+  </div>
+
+  <div class="s1-foot">
+    <h2 class="rv">Let's set something<br><em>in production.</em></h2>
+    <div class="s1-foot-links rv">
+      <a href="mailto:pearlynelizabeth29@gmail.com">pearlynelizabeth29@gmail.com</a>
+      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
 </div>
- 
-<!-- PROJECTS -->
-<section class="projects-section" id="projects">
-  <div class="reveal">
-    <div class="s-label">Portfolio</div>
-    <div class="s-title">Projects I've <em>built.</em></div>
+
+<!-- ================================================================
+     SAMPLE 2 — N° EDITORIAL
+================================================================ -->
+<div class="sample s2" id="sample1">
+  <div class="s2-nav">
+    <span>Pearlyn Elizabeth®</span>
+    <span>AI Systems — UK</span>
   </div>
- 
-  <div class="proj-grid">
- 
-    <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">01</div>
-        <span class="proj-cat cat-rust">RAG · Automation</span>
-      </div>
-      <h3>RAG AI Chatbot + n8n</h3>
-      <p>End-to-end RAG system — ingests Google Drive docs, generates OpenAI embeddings, stores in Pinecone, delivers context-aware chatbot answers. Full automation pipeline.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">n8n</span><span class="proj-tag">OpenAI</span><span class="proj-tag">Pinecone</span><span class="proj-tag">RAG</span><span class="proj-tag">Vector Search</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-    <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">02</div>
-        <span class="proj-cat cat-teal">Hybrid · Local AI</span>
-      </div>
-      <h3>Hybrid RAG + Ollama</h3>
-      <p>Advanced hybrid retrieval combining FAISS dense + BM25 sparse search with CrossEncoder reranking. Fully local inference using Llama3 via Ollama — no cloud needed.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">FAISS</span><span class="proj-tag">BM25</span><span class="proj-tag">CrossEncoder</span><span class="proj-tag">Llama3</span><span class="proj-tag">Ollama</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-    <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">03</div>
-        <span class="proj-cat cat-gold">Enterprise · Security</span>
-      </div>
-      <h3>Secure Hybrid RAG Gateway</h3>
-      <p>Enterprise-grade RAG with prompt injection defence, PII detection via Microsoft Presidio, hybrid retrieval and reranking. Built for production environments.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">LangChain</span><span class="proj-tag">Presidio</span><span class="proj-tag">Streamlit</span><span class="proj-tag">FAISS</span><span class="proj-tag">Security</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-    <a href="https://github.com/Pearlyneliza/ai-wiki-rag-system" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">04</div>
-        <span class="proj-cat cat-rust">RAG · Knowledge</span>
-      </div>
-      <h3>AI Wiki RAG System</h3>
-      <p>Turns Wikipedia-style documents into a queryable AI knowledge base. Demonstrates real-world document ingestion, embedding, semantic search, and LLM-powered answers.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">RAG</span><span class="proj-tag">Python</span><span class="proj-tag">Embeddings</span><span class="proj-tag">LLM</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-    <a href="https://github.com/Pearlyneliza/Ecommerce-sales-dashboard-Excel" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">05</div>
-        <span class="proj-cat cat-gold">Analytics · BI</span>
-      </div>
-      <h3>E-Commerce Sales Dashboard</h3>
-      <p>Interactive Excel dashboard analysing 1,000+ e-commerce transactions. PivotTables, PivotCharts, Slicers — sales trends, top products, customer insights, underperformers.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">Excel</span><span class="proj-tag">PivotTables</span><span class="proj-tag">Data Analysis</span><span class="proj-tag">BI</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-    <a href="https://github.com/Pearlyneliza/Mood-productivity-analysis" target="_blank" class="proj-card reveal">
-      <div class="proj-card-top">
-        <div class="proj-num-tag">06</div>
-        <span class="proj-cat cat-teal">Data Science</span>
-      </div>
-      <h3>Mood & Productivity Analysis</h3>
-      <p>30-day wellness analytics exploring how weather, sleep, and activity impact mood and productivity. Python data science with Power BI visualisation.</p>
-      <div class="proj-stack">
-        <span class="proj-tag">Python</span><span class="proj-tag">Power BI</span><span class="proj-tag">Jupyter</span><span class="proj-tag">Data Science</span>
-      </div>
-      <span class="proj-link">View on GitHub →</span>
-    </a>
- 
-  </div>
-</section>
- 
-<!-- TOOLS -->
-<section class="tools-section" id="tools">
-  <div class="reveal">
-    <div class="s-label">Tech Stack</div>
-    <div class="s-title">Tools I live in.</div>
-  </div>
-  <div class="tools-bento reveal">
-    <div class="tool-card"><div class="tc-icon">🔗</div><div class="tc-name">LangChain</div><div class="tc-type">Agent Framework</div></div>
-    <div class="tool-card"><div class="tc-icon">⚡</div><div class="tc-name">n8n</div><div class="tc-type">Workflow Automation</div></div>
-    <div class="tool-card"><div class="tc-icon">🌲</div><div class="tc-name">Pinecone</div><div class="tc-type">Vector DB</div></div>
-    <div class="tool-card"><div class="tc-icon">🔍</div><div class="tc-name">FAISS</div><div class="tc-type">Vector Search</div></div>
-    <!-- Wide card -->
-    <div class="tool-card"><div class="tc-icon">🧑‍💻</div><div class="tc-name">Claude Code</div><div class="tc-type">AI Coding CLI</div></div>
-    <div class="tool-card"><div class="tc-icon">🦙</div><div class="tc-name">Ollama</div><div class="tc-type">Local LLMs</div></div>
-    <div class="tool-card"><div class="tc-icon">🤖</div><div class="tc-name">OpenAI</div><div class="tc-type">LLM & Embeddings</div></div>
-    <div class="tool-card"><div class="tc-icon">🐍</div><div class="tc-name">Python</div><div class="tc-type">Core Language</div></div>
-    <div class="tool-card"><div class="tc-icon">🖥️</div><div class="tc-name">Streamlit</div><div class="tc-type">AI Demos & UI</div></div>
-    <!-- Wide card -->
-    <div class="tool-card"><div class="tc-icon">🎬</div><div class="tc-name">Higgsfield</div><div class="tc-type">AI Video Generation</div></div>
-    <div class="tool-card"><div class="tc-icon">🛡️</div><div class="tc-name">Presidio</div><div class="tc-type">PII Detection</div></div>
-    <div class="tool-card"><div class="tc-icon">📊</div><div class="tc-name">Power BI</div><div class="tc-type">Data Visualisation</div></div>
-    <div class="tool-card"><div class="tc-icon">🤗</div><div class="tc-name">Hugging Face</div><div class="tc-type">Models & Spaces</div></div>
-    <div class="tool-card"><div class="tc-icon">🐙</div><div class="tc-name">GitHub</div><div class="tc-type">Version Control</div></div>
-  </div>
-</section>
- 
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-inner-grid">
-    <div class="contact-left reveal">
-      <div class="s-label">Get In Touch</div>
-      <div class="s-title">Let's build something <em>intelligent.</em></div>
-      <p>Looking for AI agent developer and solution architect roles across the UK. India · Dubai · Remote. If you're building something smart — let's talk.</p>
+
+  <div class="s2-hero">
+    <span class="s2-no rv">N°001 — The Architect of Agents</span>
+    <h1 class="rv">I build <span class="hl">agent systems</span> and <span class="bl">production RAG</span> that businesses actually run.</h1>
+    <div class="s2-hero-foot rv">
+      <p>MSc Artificial Intelligence, University of Surrey. Multi-agent orchestration, secure retrieval, and cloud deployment on Google Cloud with Vertex AI — designed end to end, shipped end to end.</p>
+      <a href="mailto:pearlynelizabeth29@gmail.com" class="s2-cta"><span class="c"></span>Start a conversation</a>
     </div>
-    <div class="contact-cards reveal">
-      <a href="mailto:pearlynelizabeth29@gmail.com" class="contact-card">
-        <div class="cc-icon cc-icon-gold">✉️</div>
-        <div class="cc-text"><strong>Email</strong><span>pearlynelizabeth29@gmail.com</span></div>
+  </div>
+
+  <div class="s2-marq" aria-hidden="true">
+    <div class="s2-marq-in">
+      <span>n.002 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span><span>n.002 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span>
+    </div>
+  </div>
+
+  <div class="s2-sec">
+    <div class="s2-sec-head"><span class="n">N°002</span><h2>Five agents. One system.</h2></div>
+    <div class="s2-fleet">
+      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Orchestrator</span><h3>Hermes</h3><p>Parses intent, plans the graph, routes every task.</p></div>
+      <div class="s2-agent rv" style="--ac:#C8F169"><span class="tag" style="--ac:#2242FF;color:#fff">Research</span><h3>OpenClaw</h3><p>Autonomous research and clean structured extraction.</p></div>
+      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Lead Gen</span><h3>Scout</h3><p>Sources, scores and enriches prospects on repeat.</p></div>
+      <div class="s2-agent rv" style="--ac:#C8F169"><span class="tag" style="--ac:#2242FF;color:#fff">Deploy</span><h3>Forge</h3><p>Ships approved workflows live to n8n on GCP.</p></div>
+      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Monitor</span><h3>Sentinel</h3><p>Watches every run so production stays honest.</p></div>
+    </div>
+  </div>
+
+  <div class="s2-projwrap">
+    <div class="s2-sec">
+      <div class="s2-sec-head"><span class="n">N°003</span><h2 style="color:#F5F4EF">Selected systems</h2></div>
+      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">001</span><h3>Production RAG on Google Cloud</h3><span class="meta">Vertex AI · Gemini · Docker · SSH</span></a>
+      <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">002</span><h3>Secure Hybrid RAG Gateway</h3><span class="meta">Presidio · Injection Defence</span></a>
+      <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">003</span><h3>Hybrid RAG + Ollama</h3><span class="meta">FAISS · BM25 · CrossEncoder</span></a>
+      <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">004</span><h3>RAG Chatbot + n8n Pipeline</h3><span class="meta">Pinecone · OpenAI · n8n</span></a>
+    </div>
+  </div>
+
+  <div class="s2-sec">
+    <div class="s2-sec-head"><span class="n">N°004</span><h2>The stack</h2></div>
+    <div class="s2-stack rv">
+      <span class="s2-chip lime">Vertex AI</span><span class="s2-chip lime">Gemini</span><span class="s2-chip lime">GCP · VPS · SSH</span>
+      <span class="s2-chip">LangChain</span><span class="s2-chip">n8n</span><span class="s2-chip">Pinecone</span><span class="s2-chip">FAISS</span><span class="s2-chip">BM25</span><span class="s2-chip">CrossEncoder</span><span class="s2-chip">Ollama · Llama 3</span><span class="s2-chip">OpenAI</span><span class="s2-chip">Presidio</span><span class="s2-chip">Docker</span><span class="s2-chip">FastAPI</span><span class="s2-chip">Python</span><span class="s2-chip">Claude Code · Cowork</span>
+    </div>
+  </div>
+
+  <div class="s2-contact rv">
+    <h2>Your systems,<br><span class="hl">smarter by design.</span></h2>
+    <div class="s2-contact-row">
+      <a class="s2-cbtn" href="mailto:pearlynelizabeth29@gmail.com">Email</a>
+      <a class="s2-cbtn" href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="s2-cbtn" href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SAMPLE 3 — POP POSTER
+================================================================ -->
+<div class="sample s3" id="sample2">
+  <div class="s3-hero">
+    <h1 class="rv">Pearlyn<br><span class="out">builds</span> <span class="yel">agents.</span></h1>
+    <div class="s3-hero-row rv">
+      <p>AI systems architect. MSc AI, University of Surrey. I design multi-agent fleets, secure RAG, and cloud automation — then ship them to production on Google Cloud.</p>
+      <div class="s3-stickers">
+        <span class="s3-stick y" style="--r:-3deg">MSc AI</span>
+        <span class="s3-stick p" style="--r:2deg">Vertex AI</span>
+        <span class="s3-stick" style="--r:-2deg">RAG</span>
+        <span class="s3-stick y" style="--r:3deg">n8n</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="s3-tick" aria-hidden="true">
+    <div class="s3-tick-in">
+      <span>AI Agents</span><span>·</span><span>Production RAG</span><span>·</span><span>Google Cloud</span><span>·</span><span>Vertex AI</span><span>·</span><span>Automation</span><span>·</span><span>AI Agents</span><span>·</span><span>Production RAG</span><span>·</span><span>Google Cloud</span><span>·</span><span>Vertex AI</span><span>·</span><span>Automation</span><span>·</span>
+    </div>
+  </div>
+
+  <div class="s3-fleet">
+    <h2 class="s3-h2 rv">Meet <em>Pearlyn OS.</em></h2>
+    <div class="s3-cards">
+      <div class="s3-card rv" style="--bg:#2438F7;--c:#FFF7EA"><span class="id">AGT 00</span><h3>Hermes</h3><p>The orchestrator. Plans the graph, routes every job.</p></div>
+      <div class="s3-card rv" style="--bg:#FFF7EA"><span class="id">AGT 01</span><h3>OpenClaw</h3><p>Research and scraping, fed straight into retrieval.</p></div>
+      <div class="s3-card rv" style="--bg:#FFD23F"><span class="id">AGT 02</span><h3>Scout</h3><p>Lead generation as a repeatable, scored pipeline.</p></div>
+      <div class="s3-card rv" style="--bg:#00A878;--c:#FFF7EA"><span class="id">AGT 03</span><h3>Forge</h3><p>Builds and deploys live n8n automations on GCP.</p></div>
+      <div class="s3-card rv" style="--bg:#FFF7EA"><span class="id">AGT 04</span><h3>Sentinel</h3><p>Monitors every run. Production stays observable.</p></div>
+    </div>
+  </div>
+
+  <div class="s3-projwrap">
+    <h2 class="s3-h2 rv" style="color:#161210">Shipped <em>systems.</em></h2>
+    <div class="s3-projgrid">
+      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s3-proj rv">
+        <span class="s3-ptag">Cloud · Vertex AI</span>
+        <h4>Production RAG on GCP</h4>
+        <p>Vertex AI and Gemini serving over hybrid retrieval, Dockerised on a GCP VPS via SSH.</p>
+        <span class="go">GitHub →</span>
       </a>
-      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" class="contact-card">
-        <div class="cc-icon cc-icon-rust">💼</div>
-        <div class="cc-text"><strong>LinkedIn</strong><span>Pearlyn Elizabeth</span></div>
+      <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s3-proj rv">
+        <span class="s3-ptag">Security</span>
+        <h4>Secure RAG Gateway</h4>
+        <p>Injection defence + Presidio PII detection over hybrid retrieval and reranking.</p>
+        <span class="go">GitHub →</span>
       </a>
-      <a href="https://github.com/Pearlyneliza" target="_blank" class="contact-card">
-        <div class="cc-icon cc-icon-teal">🐙</div>
-        <div class="cc-text"><strong>GitHub</strong><span>Pearlyneliza — 6+ projects</span></div>
+      <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s3-proj rv">
+        <span class="s3-ptag">Local AI</span>
+        <h4>Hybrid RAG + Ollama</h4>
+        <p>FAISS + BM25 + CrossEncoder, fully local on Llama 3. Zero cloud required.</p>
+        <span class="go">GitHub →</span>
       </a>
     </div>
   </div>
-</section>
- 
-<footer>
-  <div class="footer-logo">Pearlyn <em>E.</em></div>
-  <p>AI Agent Developer · MSc AI · University of Surrey</p>
-  <p style="color:#3A2A1A">© 2025</p>
-</footer>
- 
+
+  <div class="s3-foot">
+    <h2 class="rv">Let's make<br>something <span class="yel">loud.</span></h2>
+    <div class="s3-foot-row rv">
+      <a class="s3-fbtn" href="mailto:pearlynelizabeth29@gmail.com">Email me</a>
+      <a class="s3-fbtn" href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="s3-fbtn" href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SAMPLE 4 — DUSK BLOOM
+================================================================ -->
+<div class="sample s4" id="sample3">
+  <div class="s4-orb s4-o1"></div><div class="s4-orb s4-o2"></div><div class="s4-orb s4-o3"></div>
+  <div class="s4-inner">
+
+    <div class="s4-hero">
+      <span class="s4-eyebrow rv">Pearlyn Elizabeth — AI Systems Architect</span>
+      <h1 class="rv">Agents that <span class="g">think.</span><br>Systems that <span class="g">ship.</span></h1>
+      <p class="rv">Multi-agent orchestration, secure RAG, and cloud automation — architected end to end and deployed on Google Cloud with Vertex AI. MSc Artificial Intelligence, University of Surrey.</p>
+      <div class="s4-btns rv">
+        <a href="mailto:pearlynelizabeth29@gmail.com" class="s4-btn p">Work with me</a>
+        <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s4-btn o">GitHub</a>
+      </div>
+
+      <div class="s4-orbit rv">
+        <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pearlyn OS agent orbit">
+          <defs>
+            <linearGradient id="s4g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FF2E93"/><stop offset="0.5" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FFC24B"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="280" cy="170" rx="240" ry="120" fill="none" stroke="rgba(255,242,230,0.18)" stroke-width="1"/>
+          <ellipse cx="280" cy="170" rx="160" ry="80" fill="none" stroke="rgba(255,242,230,0.12)" stroke-width="1"/>
+          <circle cx="280" cy="170" r="46" fill="url(#s4g)"/>
+          <text x="280" y="166" text-anchor="middle" fill="#1A0B24" font-family="Space Mono" font-weight="700" font-size="13">HERMES</text>
+          <text x="280" y="182" text-anchor="middle" fill="rgba(26,11,36,0.7)" font-family="Space Mono" font-size="7.5">ORCHESTRATOR</text>
+          <g class="s4-spin">
+            <g transform="translate(40,170)"><circle r="26" fill="#241031" stroke="#FF2E93" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">OpenClaw</text></g>
+            <g transform="translate(520,170)"><circle r="26" fill="#241031" stroke="#FFC24B" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Scout</text></g>
+            <g transform="translate(280,50)"><circle r="26" fill="#241031" stroke="#FF7A3D" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Forge</text></g>
+            <g transform="translate(280,290)"><circle r="26" fill="#241031" stroke="#7A3DF5" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Sentinel</text></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="s4-sec">
+      <div class="s4-sec-head rv"><h2>Systems, <b>shipped.</b></h2></div>
+      <div class="s4-glass-grid">
+        <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s4-glass rv">
+          <span class="t">Cloud · Vertex AI · Gemini</span>
+          <h3>Production RAG on Google Cloud</h3>
+          <p>Hybrid retrieval served through Vertex AI endpoints, containerised with Docker and provisioned on a GCP VPS over SSH.</p>
+          <span class="go">View on GitHub →</span>
+        </a>
+        <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s4-glass rv">
+          <span class="t">Enterprise · Security</span>
+          <h3>Secure Hybrid RAG Gateway</h3>
+          <p>Prompt-injection defence and Presidio PII detection layered over hybrid retrieval and reranking.</p>
+          <span class="go">View on GitHub →</span>
+        </a>
+        <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s4-glass rv">
+          <span class="t">Hybrid · Local Inference</span>
+          <h3>Hybrid RAG + Ollama</h3>
+          <p>FAISS dense + BM25 sparse with CrossEncoder reranking, running fully local on Llama 3.</p>
+          <span class="go">View on GitHub →</span>
+        </a>
+        <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s4-glass rv">
+          <span class="t">RAG · Automation</span>
+          <h3>RAG Chatbot + n8n</h3>
+          <p>Drive ingestion, OpenAI embeddings and Pinecone retrieval, orchestrated hands-off in n8n.</p>
+          <span class="go">View on GitHub →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="s4-sec">
+      <div class="s4-sec-head rv"><h2>The <b>stack.</b></h2></div>
+      <div class="s4-chips rv">
+        <span class="s4-chip">Vertex AI</span><span class="s4-chip">Gemini</span><span class="s4-chip">GCP · VPS · SSH</span><span class="s4-chip">LangChain</span><span class="s4-chip">n8n</span><span class="s4-chip">Pinecone</span><span class="s4-chip">FAISS</span><span class="s4-chip">BM25</span><span class="s4-chip">CrossEncoder</span><span class="s4-chip">Ollama · Llama 3</span><span class="s4-chip">OpenAI</span><span class="s4-chip">Presidio</span><span class="s4-chip">Docker</span><span class="s4-chip">FastAPI</span><span class="s4-chip">Python</span><span class="s4-chip">Claude Code · Cowork</span>
+      </div>
+    </div>
+
+    <div class="s4-contact">
+      <h2 class="rv">Let's build something<br><span class="g">luminous.</span></h2>
+      <div class="s4-btns rv">
+        <a href="mailto:pearlynelizabeth29@gmail.com" class="s4-btn p">pearlynelizabeth29@gmail.com</a>
+        <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener" class="s4-btn o">LinkedIn</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('visible'),i*80);
-      obs.unobserve(e.target);
-    }
-  });
-},{threshold:0.08});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const names=[
+  'The Specimen — 70s type foundry',
+  'N° Editorial — clean & colourful',
+  'Pop Poster — loud & playful',
+  'Dusk Bloom — gradient luxe'
+];
+const btns=[...document.querySelectorAll('.sw-btn')];
+const samples=[...document.querySelectorAll('.sample')];
+const ind=document.getElementById('swInd');
+const label=document.getElementById('swLabel');
+
+function place(i){
+  const b=btns[i];
+  ind.style.width=b.offsetWidth+'px';
+  ind.style.transform='translateX('+(b.offsetLeft-5)+'px)';
+}
+function go(i){
+  btns.forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i)});
+  samples.forEach((s,j)=>s.classList.toggle('live',j===i));
+  label.textContent=names[i];
+  place(i);
+  window.scrollTo({top:0,behavior:'instant'});
+  observeReveals();
+}
+btns.forEach(b=>b.addEventListener('click',()=>go(+b.dataset.i)));
+window.addEventListener('resize',()=>place(btns.findIndex(b=>b.classList.contains('on'))));
+
+let io;
+function observeReveals(){
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*55);io.unobserve(e.target)}});
+  },{threshold:0.1});
+  document.querySelectorAll('.sample.live .rv:not(.in)').forEach(el=>io.observe(el));
+}
+place(0);observeReveals();
 </script>
 </body>
 </html>
