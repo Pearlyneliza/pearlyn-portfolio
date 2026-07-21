@@ -3,736 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pearlyn Elizabeth — 4 Design Concepts</title>
+<title>Pearlyn Elizabeth — AI Systems Architect</title>
+<meta name="description" content="Pearlyn Elizabeth — AI systems architect. Multi-agent orchestration, production RAG, and cloud automation on Google Cloud with Vertex AI. MSc AI, University of Surrey.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600;1,9..144,900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Archivo:wght@500;600;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F5F4EF;
+  --ink:#101418;
+  --cobalt:#2242FF;
+  --lime:#C8F169;
+  --grey:#4B5563;
+  --soft:rgba(16,20,24,0.14);
+}
 html{scroll-behavior:smooth}
-body{font-family:'Instrument Sans',sans-serif;-webkit-font-smoothing:antialiased;background:#111}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
 a{text-decoration:none;color:inherit}
-img{max-width:100%}
+.mono{font-family:'Space Mono',monospace}
+.wrap{max-width:1200px;margin:0 auto;padding:0 3rem}
+::selection{background:var(--lime);color:var(--ink)}
 
-/* ============ TOP SWITCHER ============ */
-.switch-wrap{
-  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:1000;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
+/* ---------- PRELOADER ---------- */
+#pre{
+  position:fixed;inset:0;z-index:2000;background:var(--ink);color:var(--paper);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:2rem 3rem;transition:transform .8s cubic-bezier(.76,0,.24,1);
 }
-.switcher{
-  position:relative;display:flex;background:rgba(17,15,14,0.9);backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.18);border-radius:100px;padding:5px;
-  box-shadow:0 12px 40px -10px rgba(0,0,0,0.6);
-}
-.sw-ind{
-  position:absolute;top:5px;left:5px;height:calc(100% - 10px);width:var(--w,25%);
-  background:#fff;border-radius:100px;transition:transform .38s cubic-bezier(.65,0,.35,1);
-  will-change:transform;
-}
-.sw-btn{
-  position:relative;z-index:1;border:none;background:none;cursor:pointer;
-  font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;
-  color:rgba(255,255,255,0.65);padding:0.55rem 1.15rem;border-radius:100px;
-  transition:color .3s;white-space:nowrap;letter-spacing:0.02em;
-}
-.sw-btn.on{color:#111}
-.sw-label{
-  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:rgba(255,255,255,0.85);background:rgba(17,15,14,0.75);backdrop-filter:blur(8px);
-  padding:0.3rem 0.9rem;border-radius:100px;border:1px solid rgba(255,255,255,0.12);
-}
-@media(max-width:640px){
-  .sw-btn{padding:0.5rem 0.75rem;font-size:0.66rem}
-  .switch-wrap{width:calc(100% - 20px)}
-  .switcher{width:100%;justify-content:space-between}
-}
+#pre.done{transform:translateY(-100%)}
+#pre .pre-name{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,244,239,0.7)}
+#preNum{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(3rem,10vw,7rem);line-height:1;color:var(--lime)}
 
-/* sample panels */
-.sample{display:none;animation:sampleIn .5s ease both}
-.sample.live{display:block}
-@keyframes sampleIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ---------- NAV ---------- */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(245,244,239,0.88);backdrop-filter:blur(12px);
+  border-bottom:1.5px solid var(--ink);
+}
+.nav-in{max-width:1200px;margin:0 auto;padding:1.05rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{font-weight:700;font-size:1rem;letter-spacing:-0.02em}
+.brand sup{font-family:'Space Mono',monospace;font-size:0.55em;color:var(--cobalt)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;color:var(--grey);transition:color .2s;position:relative}
+.nav-links a:hover{color:var(--cobalt)}
+.nav-cta{
+  font-family:'Space Mono',monospace;font-size:0.72rem;background:var(--ink);color:var(--paper);
+  padding:0.6rem 1.3rem;border-radius:100px;transition:background .25s,transform .2s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--cobalt);transform:translateY(-1px)}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:5.5rem 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;margin-bottom:3.2rem;flex-wrap:wrap}
+.sec-head-l{display:flex;align-items:baseline;gap:1.4rem;flex-wrap:wrap}
+.sec-no{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;color:var(--cobalt)}
+.sec-head h2{font-weight:700;font-size:clamp(2rem,4.8vw,3.6rem);letter-spacing:-0.04em;line-height:1.02}
+.sec-rep{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(16,20,24,0.4)}
+
+/* reveal */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-
-/* ================================================================
-   SAMPLE 1 — THE SPECIMEN  (Denton / Peregrin: 70s type foundry)
-================================================================ */
-.s1{background:#F4E8D3;color:#241505;font-family:'Fraunces',serif}
-.s1 .mono{font-family:'Space Mono',monospace}
-.s1-rule{border-top:2px solid #241505}
-.s1-head{
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;
-  padding:5.2rem 3rem 1rem;font-family:'Space Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
-}
-.s1-hero{padding:2.5rem 3rem 3rem;border-top:2px solid #241505;border-bottom:2px solid #241505}
-.s1-hero h1{
-  font-weight:900;font-size:clamp(3.4rem,12.5vw,11.5rem);line-height:0.86;
-  letter-spacing:-0.055em;font-variation-settings:'opsz' 144;
-}
-.s1-hero h1 .it{font-style:italic;color:#C1440E}
-.s1-sub{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:2.4rem;
-}
-.s1-sub p{font-family:'Instrument Sans',sans-serif;font-size:1.05rem;max-width:30rem;line-height:1.55;color:#4A3216}
-.s1-sub p b{color:#241505}
-.s1-badge{
-  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
-  background:#C1440E;color:#F4E8D3;padding:0.6rem 1.2rem;border-radius:100px;white-space:nowrap;
-}
-.s1-strip{
-  display:flex;gap:0;flex-wrap:wrap;border-bottom:2px solid #241505;
-}
-.s1-strip>div{
-  flex:1;min-width:180px;padding:1.2rem 3rem;font-family:'Space Mono',monospace;
-  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-right:2px solid #241505;
-}
-.s1-strip>div:last-child{border-right:none}
-.s1-strip b{display:block;font-family:'Fraunces',serif;font-size:2rem;font-weight:900;letter-spacing:-0.02em;margin-top:0.2rem;text-transform:none}
-.s1-sec-label{
-  padding:3.4rem 3rem 1rem;font-family:'Space Mono',monospace;font-size:0.7rem;
-  letter-spacing:0.18em;text-transform:uppercase;color:#8A6234;
-  display:flex;justify-content:space-between;
-}
-.s1-agents{border-top:2px solid #241505}
-.s1-agent{
-  display:grid;grid-template-columns:70px 1fr auto;gap:2rem;align-items:baseline;
-  padding:1.5rem 3rem;border-bottom:1px solid rgba(36,21,5,0.25);transition:background .25s,padding-left .25s;
-}
-.s1-agent:hover{background:#EEDCBB;padding-left:3.6rem}
-.s1-agent .pt{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:#8A6234}
-.s1-agent h3{font-weight:900;font-size:clamp(1.8rem,4.5vw,3.4rem);letter-spacing:-0.03em;line-height:1}
-.s1-agent h3 em{font-style:italic;font-weight:600;font-size:0.5em;color:#C1440E;letter-spacing:0;margin-left:0.6rem}
-.s1-agent p{font-family:'Instrument Sans',sans-serif;font-size:0.88rem;color:#4A3216;max-width:20rem;text-align:right}
-.s1-proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));border-top:2px solid #241505}
-.s1-proj{
-  border-right:1px solid rgba(36,21,5,0.25);border-bottom:1px solid rgba(36,21,5,0.25);
-  padding:2.2rem 2.4rem 2.4rem;display:flex;flex-direction:column;gap:0.9rem;
-  transition:background .25s;position:relative;
-}
-.s1-proj:hover{background:#241505;color:#F4E8D3}
-.s1-proj:hover .s1-pi{color:#F5B942}
-.s1-proj:hover p{color:#D9C6A8}
-.s1-pi{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:#C1440E}
-.s1-proj h4{font-weight:900;font-size:1.7rem;letter-spacing:-0.025em;line-height:1.05}
-.s1-proj p{font-family:'Instrument Sans',sans-serif;font-size:0.88rem;color:#4A3216;line-height:1.55;flex-grow:1}
-.s1-proj .go{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase}
-.s1-stackline{
-  padding:2rem 3rem;border-top:2px solid #241505;font-family:'Space Mono',monospace;
-  font-size:0.78rem;line-height:2.2;letter-spacing:0.04em;color:#4A3216;
-}
-.s1-stackline b{color:#241505;font-weight:700}
-.s1-foot{
-  background:#241505;color:#F4E8D3;padding:3.5rem 3rem;display:flex;
-  justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;
-}
-.s1-foot h2{font-weight:900;font-size:clamp(2rem,5.5vw,4.2rem);letter-spacing:-0.04em;line-height:0.95}
-.s1-foot h2 em{font-style:italic;color:#F5B942}
-.s1-foot-links{display:flex;flex-direction:column;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.8rem}
-.s1-foot-links a{border-bottom:1px solid rgba(244,232,211,0.4);padding-bottom:2px;width:fit-content;transition:color .2s,border-color .2s}
-.s1-foot-links a:hover{color:#F5B942;border-color:#F5B942}
-@media(max-width:760px){
-  .s1-head,.s1-hero,.s1-sec-label,.s1-stackline,.s1-foot{padding-left:1.3rem;padding-right:1.3rem}
-  .s1-agent{grid-template-columns:1fr;gap:0.4rem;padding:1.3rem}
-  .s1-agent p{text-align:left;max-width:100%}
-  .s1-strip>div{padding:1rem 1.3rem}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  #pre{display:none}
 }
 
-/* ================================================================
-   SAMPLE 2 — N° EDITORIAL  (Wembi: clean, colourful, numbered)
-================================================================ */
-.s2{background:#F5F4EF;color:#101418;font-family:'Instrument Sans',sans-serif}
-.s2 .mono{font-family:'Space Mono',monospace}
-.s2-nav{
-  display:flex;justify-content:space-between;align-items:center;padding:5.2rem 3rem 0;
-  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;
+/* ---------- HERO ---------- */
+.hero{padding:5rem 0 5.5rem}
+.hero-no{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;color:var(--cobalt);margin-bottom:1.4rem;display:block}
+.hero h1{
+  font-weight:700;font-size:clamp(2.9rem,7.8vw,6.8rem);line-height:0.98;letter-spacing:-0.045em;max-width:16ch;
 }
-.s2-hero{padding:4rem 3rem 4.5rem;position:relative;overflow:hidden}
-.s2-no{
-  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;
-  color:#2242FF;margin-bottom:1.2rem;display:block;
-}
-.s2-hero h1{
-  font-weight:700;font-size:clamp(2.8rem,7.6vw,6.6rem);line-height:0.98;letter-spacing:-0.045em;max-width:15ch;
-}
-.s2-hero h1 .hl{
-  display:inline-block;background:#C8F169;padding:0 0.18em;border-radius:0.14em;
+.hero h1 .hl{
+  display:inline-block;background:var(--lime);padding:0 0.18em;border-radius:0.14em;
   transform:rotate(-1.2deg);
 }
-.s2-hero h1 .bl{color:#2242FF}
-.s2-hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:3rem}
-.s2-hero-foot p{max-width:26rem;font-size:1.02rem;line-height:1.6;color:#4B5563}
-.s2-cta{
-  display:inline-flex;align-items:center;gap:0.7rem;background:#101418;color:#F5F4EF;
+.hero h1 .bl{color:var(--cobalt)}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;margin-top:3.2rem}
+.hero-foot p{max-width:27rem;font-size:1.05rem;line-height:1.65;color:var(--grey)}
+.hero-foot p b{color:var(--ink);font-weight:600}
+.hero-ctas{display:flex;gap:0.9rem;flex-wrap:wrap}
+.cta{
+  display:inline-flex;align-items:center;gap:0.7rem;
   font-family:'Space Mono',monospace;font-size:0.76rem;padding:0.95rem 1.7rem;border-radius:100px;
-  transition:background .25s,transform .2s;
+  transition:background .25s,transform .2s,color .25s,border-color .25s;
 }
-.s2-cta:hover{background:#2242FF;transform:translateY(-2px)}
-.s2-cta .c{width:8px;height:8px;border-radius:50%;background:#C8F169}
-.s2-marq{
-  overflow:hidden;border-top:1.5px solid #101418;border-bottom:1.5px solid #101418;
-  background:#2242FF;color:#F5F4EF;padding:0.85rem 0;
+.cta.dark{background:var(--ink);color:var(--paper)}
+.cta.dark:hover{background:var(--cobalt);transform:translateY(-2px)}
+.cta.dark .c{width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.cta.line{border:1.5px solid var(--ink);color:var(--ink)}
+.cta.line:hover{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:0;margin-top:4rem;border:1.5px solid var(--ink);border-radius:18px;
+  overflow:hidden;background:#fff;flex-wrap:wrap;
 }
-.s2-marq-in{display:flex;gap:3rem;width:max-content;animation:s2m 22s linear infinite;font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase}
-@keyframes s2m{to{transform:translateX(-50%)}}
-.s2-sec{padding:5rem 3rem}
-.s2-sec-head{display:flex;align-items:baseline;gap:1.4rem;margin-bottom:3rem;flex-wrap:wrap}
-.s2-sec-head .n{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;color:#2242FF}
-.s2-sec-head h2{font-weight:700;font-size:clamp(1.9rem,4.5vw,3.4rem);letter-spacing:-0.035em}
-.s2-fleet{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem}
-.s2-agent{
-  background:#FFFFFF;border:1.5px solid #101418;border-radius:18px;padding:1.6rem;
-  display:flex;flex-direction:column;gap:0.7rem;min-height:215px;
-  transition:transform .25s,box-shadow .25s;position:relative;
+.hstat{flex:1;min-width:170px;padding:1.4rem 1.8rem;border-right:1.5px solid var(--ink)}
+.hstat:last-child{border-right:none}
+.hstat b{display:block;font-weight:700;font-size:1.9rem;letter-spacing:-0.03em}
+.hstat span{font-family:'Space Mono',monospace;font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey)}
+
+/* ---------- MARQUEE ---------- */
+.marq{
+  overflow:hidden;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);
+  background:var(--cobalt);color:var(--paper);padding:0.9rem 0;
 }
-.s2-agent:hover{transform:translateY(-6px);box-shadow:0 14px 0 -6px var(--ac,#2242FF)}
-.s2-agent .tag{
+.marq-in{display:flex;gap:3rem;width:max-content;animation:marq 24s linear infinite;font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--grey);font-size:1.03rem;margin-bottom:1.15rem}
+.about-text p b{color:var(--ink);font-weight:600}
+.about-text .hl-in{background:var(--lime);padding:0 0.25em;border-radius:0.14em}
+.facts{display:flex;flex-direction:column;gap:0.9rem}
+.fact{
+  background:#fff;border:1.5px solid var(--ink);border-radius:16px;padding:1.25rem 1.4rem;
+  display:flex;gap:1.1rem;align-items:flex-start;transition:transform .22s,box-shadow .22s;
+}
+.fact:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--cobalt)}
+.fact:nth-child(even):hover{box-shadow:6px 6px 0 var(--lime)}
+.fact .n{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;color:var(--cobalt);padding-top:0.25rem}
+.fact b{display:block;font-weight:600;font-size:0.98rem}
+.fact span{font-size:0.84rem;color:var(--grey)}
+
+/* ---------- AGENTS ---------- */
+.fleet{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem}
+.agent{
+  background:#fff;border:1.5px solid var(--ink);border-radius:18px;padding:1.6rem;
+  display:flex;flex-direction:column;gap:0.7rem;min-height:225px;
+  transition:transform .25s,box-shadow .25s;
+}
+.agent:hover{transform:translateY(-6px);box-shadow:0 14px 0 -6px var(--ac,var(--cobalt))}
+.agent .tag{
   font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:#101418;background:var(--ac,#C8F169);width:fit-content;padding:0.28rem 0.7rem;border-radius:100px;
+  background:var(--tg,var(--lime));color:var(--tgc,var(--ink));width:fit-content;padding:0.3rem 0.75rem;border-radius:100px;
 }
-.s2-agent h3{font-weight:700;font-size:1.5rem;letter-spacing:-0.02em;margin-top:auto}
-.s2-agent p{font-size:0.85rem;color:#4B5563;line-height:1.5}
-.s2-projwrap{background:#101418;color:#F5F4EF}
-.s2-projwrap .s2-sec-head .n{color:#C8F169}
-.s2-proj{
-  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:2rem;
-  padding:1.7rem 0;border-bottom:1px solid rgba(245,244,239,0.18);transition:padding-left .25s;
-}
-.s2-proj:hover{padding-left:1.2rem}
-.s2-proj:hover h3{color:#C8F169}
-.s2-proj .idx{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(245,244,239,0.5)}
-.s2-proj h3{font-weight:700;font-size:clamp(1.3rem,3.2vw,2.1rem);letter-spacing:-0.025em;transition:color .25s}
-.s2-proj .meta{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;color:rgba(245,244,239,0.55);text-align:right;text-transform:uppercase}
-.s2-stack{display:flex;flex-wrap:wrap;gap:0.55rem}
-.s2-chip{
-  font-family:'Space Mono',monospace;font-size:0.72rem;border:1.5px solid #101418;
-  padding:0.45rem 1rem;border-radius:100px;background:#fff;transition:background .2s,color .2s;
-}
-.s2-chip:hover{background:#2242FF;color:#fff;border-color:#2242FF}
-.s2-chip.lime{background:#C8F169}
-.s2-chip.lime:hover{background:#2242FF;color:#fff}
-.s2-contact{
-  margin:0 3rem 5rem;background:#2242FF;color:#F5F4EF;border-radius:26px;
-  padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;
-}
-.s2-contact::before{content:'N°005';position:absolute;top:1.4rem;left:1.8rem;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.16em;color:rgba(245,244,239,0.6)}
-.s2-contact h2{font-weight:700;font-size:clamp(2rem,5.5vw,4rem);letter-spacing:-0.04em;line-height:1.02;margin-bottom:2rem}
-.s2-contact h2 .hl{background:#C8F169;color:#101418;padding:0 0.16em;border-radius:0.14em;display:inline-block;transform:rotate(-1deg)}
-.s2-contact-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.s2-cbtn{
-  font-family:'Space Mono',monospace;font-size:0.76rem;background:#F5F4EF;color:#101418;
-  padding:0.9rem 1.6rem;border-radius:100px;transition:transform .2s,background .2s;
-}
-.s2-cbtn:hover{transform:translateY(-2px);background:#C8F169}
-@media(max-width:760px){
-  .s2-nav,.s2-hero,.s2-sec{padding-left:1.3rem;padding-right:1.3rem}
-  .s2-contact{margin:0 1.3rem 4rem;padding:3rem 1.5rem}
-  .s2-proj{grid-template-columns:1fr;gap:0.4rem}
-  .s2-proj .meta{text-align:left}
-}
+.agent .aid{font-family:'Space Mono',monospace;font-size:0.62rem;color:rgba(16,20,24,0.4);margin-left:auto}
+.agent-top{display:flex;align-items:center}
+.agent h3{font-weight:700;font-size:1.55rem;letter-spacing:-0.02em;margin-top:auto}
+.agent p{font-size:0.86rem;color:var(--grey);line-height:1.55}
 
-/* ================================================================
-   SAMPLE 3 — POP POSTER  (colour-blocked, loud, brutalist-playful)
-================================================================ */
-.s3{background:#FFF7EA;color:#161210;font-family:'Archivo',sans-serif}
-.s3 .mono{font-family:'Space Mono',monospace}
-.s3-hero{
-  background:#2438F7;color:#FFF7EA;padding:7rem 3rem 4rem;position:relative;overflow:hidden;
-  border-bottom:4px solid #161210;
+/* ---------- PROCESS ---------- */
+.process{background:#fff;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.step{
+  border:1.5px solid var(--ink);border-radius:16px;padding:1.5rem;background:var(--paper);
+  transition:background .25s,transform .22s;
 }
-.s3-hero h1{
-  font-weight:900;font-size:clamp(3.2rem,11.5vw,10rem);line-height:0.88;letter-spacing:-0.04em;
-  text-transform:uppercase;
-}
-.s3-hero h1 .out{
-  color:transparent;-webkit-text-stroke:2.5px #FFF7EA;
-}
-.s3-hero h1 .yel{color:#FFD23F}
-.s3-hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:2.6rem}
-.s3-hero-row p{font-weight:500;font-size:1.05rem;max-width:28rem;line-height:1.55;color:rgba(255,247,234,0.9)}
-.s3-stickers{display:flex;gap:0.7rem;flex-wrap:wrap}
-.s3-stick{
-  font-family:'Space Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;
-  background:#FFF7EA;color:#161210;border:2.5px solid #161210;border-radius:100px;
-  padding:0.5rem 1.1rem;box-shadow:3px 3px 0 #161210;transform:rotate(var(--r,0deg));
-  transition:transform .2s;
-}
-.s3-stick:hover{transform:rotate(0) scale(1.05)}
-.s3-stick.p{background:#FF5C39;color:#161210}
-.s3-stick.y{background:#FFD23F}
-.s3-tick{
-  background:#FFD23F;border-bottom:4px solid #161210;overflow:hidden;padding:0.8rem 0;
-}
-.s3-tick-in{
-  display:flex;gap:2.6rem;width:max-content;animation:s3t 18s linear infinite;
-  font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:0.06em;
-}
-@keyframes s3t{to{transform:translateX(-50%)}}
-.s3-fleet{padding:4.5rem 3rem;background:#FFF7EA}
-.s3-h2{
-  font-weight:900;font-size:clamp(2.2rem,6vw,4.6rem);letter-spacing:-0.035em;text-transform:uppercase;
-  line-height:0.94;margin-bottom:2.6rem;
-}
-.s3-h2 em{font-style:normal;color:#2438F7}
-.s3-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem}
-.s3-card{
-  border:3px solid #161210;border-radius:16px;padding:1.5rem;min-height:230px;
-  display:flex;flex-direction:column;background:var(--bg,#fff);color:var(--c,#161210);
-  box-shadow:6px 6px 0 #161210;transition:transform .2s,box-shadow .2s;
-}
-.s3-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 #161210}
-.s3-card .id{font-family:'Space Mono',monospace;font-size:0.66rem;font-weight:700;letter-spacing:0.1em;opacity:0.75}
-.s3-card h3{font-weight:900;font-size:1.75rem;letter-spacing:-0.02em;text-transform:uppercase;margin:0.5rem 0 0.6rem}
-.s3-card p{font-size:0.86rem;font-weight:500;line-height:1.5;margin-top:auto}
-.s3-projwrap{background:#FF5C39;border-top:4px solid #161210;border-bottom:4px solid #161210;padding:4.5rem 3rem}
-.s3-projwrap .s3-h2 em{color:#FFF7EA}
-.s3-proj{
-  background:#FFF7EA;border:3px solid #161210;border-radius:16px;box-shadow:6px 6px 0 #161210;
-  padding:1.8rem;display:flex;flex-direction:column;gap:0.7rem;transition:transform .2s,box-shadow .2s;
-}
-.s3-proj:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 #161210}
-.s3-projgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem}
-.s3-ptag{font-family:'Space Mono',monospace;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#FFD23F;border:2px solid #161210;width:fit-content;padding:0.25rem 0.7rem;border-radius:100px}
-.s3-proj h4{font-weight:900;font-size:1.45rem;letter-spacing:-0.02em;text-transform:uppercase;line-height:1.05}
-.s3-proj p{font-size:0.86rem;font-weight:500;line-height:1.55;flex-grow:1}
-.s3-proj .go{font-family:'Space Mono',monospace;font-weight:700;font-size:0.72rem;letter-spacing:0.08em}
-.s3-foot{background:#161210;color:#FFF7EA;padding:4.5rem 3rem;text-align:center}
-.s3-foot h2{font-weight:900;font-size:clamp(2.4rem,8vw,6rem);letter-spacing:-0.04em;text-transform:uppercase;line-height:0.92;margin-bottom:2.2rem}
-.s3-foot h2 .yel{color:#FFD23F}
-.s3-foot-row{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.s3-fbtn{
-  font-family:'Space Mono',monospace;font-weight:700;font-size:0.78rem;
-  background:#FFF7EA;color:#161210;border:2.5px solid #FFF7EA;border-radius:100px;
-  padding:0.9rem 1.7rem;transition:background .2s,color .2s,transform .2s;
-}
-.s3-fbtn:hover{background:#2438F7;color:#FFF7EA;border-color:#2438F7;transform:translateY(-2px)}
-@media(max-width:760px){
-  .s3-hero{padding:6.4rem 1.3rem 3rem}
-  .s3-fleet,.s3-projwrap,.s3-foot{padding-left:1.3rem;padding-right:1.3rem}
-}
+.step:hover{background:var(--lime);transform:translateY(-4px)}
+.step .sn{font-family:'Space Mono',monospace;font-weight:700;font-size:1.6rem;color:var(--cobalt);display:block;margin-bottom:0.8rem}
+.step:hover .sn{color:var(--ink)}
+.step b{display:block;font-weight:700;font-size:1.05rem;letter-spacing:-0.01em;margin-bottom:0.35rem}
+.step p{font-size:0.82rem;color:var(--grey);line-height:1.5}
+.step:hover p{color:var(--ink)}
 
-/* ================================================================
-   SAMPLE 4 — DUSK BLOOM  (plum base, sunset gradients, glass)
-================================================================ */
-.s4{background:#1A0B24;color:#FFF2E6;font-family:'Instrument Sans',sans-serif;position:relative;overflow:hidden}
-.s4 .mono{font-family:'Space Mono',monospace}
-.s4-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.55;pointer-events:none}
-.s4-o1{width:520px;height:520px;background:radial-gradient(circle,#FF2E93,transparent 70%);top:-160px;right:-120px;animation:s4f 9s ease-in-out infinite}
-.s4-o2{width:460px;height:460px;background:radial-gradient(circle,#FF7A3D,transparent 70%);top:34%;left:-180px;animation:s4f 11s ease-in-out infinite reverse}
-.s4-o3{width:400px;height:400px;background:radial-gradient(circle,#7A3DF5,transparent 70%);bottom:6%;right:-100px;animation:s4f 13s ease-in-out infinite}
-@keyframes s4f{0%,100%{transform:translateY(0)}50%{transform:translateY(-36px)}}
-.s4-inner{position:relative;z-index:1}
-.s4-hero{padding:7.5rem 3rem 4rem;text-align:center}
-.s4-eyebrow{
-  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:#FFB47E;display:inline-flex;align-items:center;gap:0.7rem;margin-bottom:1.6rem;
+/* ---------- SYSTEMS ---------- */
+.systems{background:var(--ink);color:var(--paper)}
+.systems .sec-no{color:var(--lime)}
+.systems .sec-rep{color:rgba(245,244,239,0.35)}
+.proj{
+  display:grid;grid-template-columns:80px 1.4fr 1fr auto;align-items:center;gap:2rem;
+  padding:1.8rem 0;border-bottom:1px solid rgba(245,244,239,0.18);transition:padding-left .25s;
 }
-.s4-eyebrow::before,.s4-eyebrow::after{content:'';width:26px;height:1px;background:#FFB47E}
-.s4-hero h1{
-  font-family:'Fraunces',serif;font-weight:600;font-style:italic;
-  font-size:clamp(3rem,9vw,7.6rem);line-height:0.98;letter-spacing:-0.03em;
+.proj:first-of-type{border-top:1px solid rgba(245,244,239,0.18)}
+.proj:hover{padding-left:1.2rem}
+.proj:hover h3{color:var(--lime)}
+.proj .idx{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(245,244,239,0.45)}
+.proj h3{font-weight:700;font-size:clamp(1.25rem,3vw,1.9rem);letter-spacing:-0.025em;transition:color .25s;line-height:1.15}
+.proj .desc{font-size:0.86rem;color:rgba(245,244,239,0.62);line-height:1.55}
+.proj .meta{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;color:rgba(245,244,239,0.5);text-align:right;text-transform:uppercase;line-height:1.9}
+.proj .arrow{
+  font-family:'Space Mono',monospace;font-size:1.1rem;color:var(--lime);
+  opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;
 }
-.s4-hero h1 .g{
-  background:linear-gradient(95deg,#FF2E93 5%,#FF7A3D 45%,#FFC24B 90%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  font-style:normal;font-weight:900;
+.proj:hover .arrow{opacity:1;transform:none}
+
+/* ---------- STACK ---------- */
+.stack-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.sgroup{background:#fff;border:1.5px solid var(--ink);border-radius:18px;padding:1.6rem}
+.sgroup-h{display:flex;align-items:baseline;gap:0.8rem;margin-bottom:1.1rem;padding-bottom:0.9rem;border-bottom:1.5px solid var(--soft)}
+.sgroup-h .gl{font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:0.12em;color:var(--cobalt)}
+.sgroup-h b{font-weight:700;font-size:1rem;letter-spacing:-0.01em}
+.chips{display:flex;flex-wrap:wrap;gap:0.5rem}
+.chip{
+  font-family:'Space Mono',monospace;font-size:0.7rem;border:1.5px solid var(--ink);
+  padding:0.4rem 0.9rem;border-radius:100px;background:var(--paper);
+  transition:background .2s,color .2s,border-color .2s;
 }
-.s4-hero p{max-width:32rem;margin:1.8rem auto 2.4rem;font-size:1.05rem;line-height:1.65;color:#D9BFC9}
-.s4-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.s4-btn{
-  font-family:'Space Mono',monospace;font-size:0.78rem;padding:0.95rem 1.8rem;border-radius:100px;
-  transition:transform .2s,box-shadow .25s;
+.chip:hover{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.chip.lm{background:var(--lime)}
+.chip.lm:hover{background:var(--cobalt);color:#fff}
+
+/* ---------- CONTACT ---------- */
+.contact-card{
+  background:var(--cobalt);color:var(--paper);border-radius:28px;
+  padding:4.5rem 3rem;text-align:center;position:relative;overflow:hidden;
 }
-.s4-btn.p{background:linear-gradient(95deg,#FF2E93,#FF7A3D);color:#1A0B24;font-weight:700}
-.s4-btn.p:hover{transform:translateY(-2px);box-shadow:0 12px 34px -8px rgba(255,80,120,0.6)}
-.s4-btn.o{border:1px solid rgba(255,242,230,0.35);color:#FFF2E6}
-.s4-btn.o:hover{border-color:#FFC24B;color:#FFC24B}
-.s4-orbit{max-width:560px;margin:4rem auto 0}
-.s4-orbit svg{width:100%;height:auto;display:block}
-.s4-spin{transform-origin:280px 170px;animation:s4r 30s linear infinite}
-@keyframes s4r{to{transform:rotate(360deg)}}
-.s4-counter{transform-origin:center;animation:s4r 30s linear infinite reverse}
-.s4-sec{padding:4.5rem 3rem}
-.s4-sec-head{text-align:center;margin-bottom:3rem}
-.s4-sec-head h2{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(1.9rem,4.6vw,3.4rem);letter-spacing:-0.02em}
-.s4-sec-head h2 b{
-  font-style:normal;font-weight:900;
-  background:linear-gradient(95deg,#FF7A3D,#FFC24B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+.contact-card::before{
+  content:'N°007';position:absolute;top:1.6rem;left:2rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.16em;color:rgba(245,244,239,0.6);
 }
-.s4-glass-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;max-width:1100px;margin:0 auto}
-.s4-glass{
-  background:rgba(255,242,230,0.05);border:1px solid rgba(255,242,230,0.14);
-  border-radius:20px;padding:1.8rem;backdrop-filter:blur(10px);
-  transition:transform .25s,border-color .25s,background .25s;display:flex;flex-direction:column;gap:0.8rem;
+.contact-card::after{
+  content:'— Contact';position:absolute;top:1.6rem;right:2rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.16em;color:rgba(245,244,239,0.6);
 }
-.s4-glass:hover{transform:translateY(-5px);border-color:rgba(255,180,126,0.5);background:rgba(255,242,230,0.08)}
-.s4-glass .t{
-  font-family:'Space Mono',monospace;font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:#FFB47E;
+.contact-card h2{font-weight:700;font-size:clamp(2.1rem,5.8vw,4.4rem);letter-spacing:-0.04em;line-height:1;margin-bottom:1.4rem}
+.contact-card h2 .hl{background:var(--lime);color:var(--ink);padding:0 0.16em;border-radius:0.14em;display:inline-block;transform:rotate(-1deg)}
+.contact-card p{max-width:30rem;margin:0 auto 2.4rem;color:rgba(245,244,239,0.85);font-size:1rem}
+.contact-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cbtn{
+  font-family:'Space Mono',monospace;font-size:0.76rem;background:var(--paper);color:var(--ink);
+  padding:0.95rem 1.7rem;border-radius:100px;transition:transform .2s,background .2s;
 }
-.s4-glass h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;letter-spacing:-0.01em}
-.s4-glass p{font-size:0.88rem;color:#D9BFC9;line-height:1.6;flex-grow:1}
-.s4-glass .go{font-family:'Space Mono',monospace;font-size:0.72rem;color:#FFC24B}
-.s4-chips{display:flex;flex-wrap:wrap;gap:0.55rem;justify-content:center;max-width:820px;margin:0 auto}
-.s4-chip{
-  font-family:'Space Mono',monospace;font-size:0.72rem;color:#FFF2E6;
-  border:1px solid rgba(255,242,230,0.22);padding:0.45rem 1.05rem;border-radius:100px;
-  transition:border-color .2s,color .2s;
-}
-.s4-chip:hover{border-color:#FF7A3D;color:#FFB47E}
-.s4-contact{padding:5rem 3rem 6rem;text-align:center}
-.s4-contact h2{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(2.2rem,6.5vw,4.8rem);line-height:1;letter-spacing:-0.02em;margin-bottom:2.4rem}
-.s4-contact h2 .g{background:linear-gradient(95deg,#FF2E93,#FFC24B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;font-weight:900}
-@media(max-width:760px){
-  .s4-hero,.s4-sec,.s4-contact{padding-left:1.3rem;padding-right:1.3rem}
+.cbtn:hover{transform:translateY(-2px);background:var(--lime)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1.5px solid var(--ink);padding:2rem 0;margin-top:5.5rem}
+.foot-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem}
+.foot-in p{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;color:var(--grey)}
+.foot-in .brand{font-size:0.95rem}
+
+@media(max-width:820px){
+  .wrap,.nav-in{padding-left:1.4rem;padding-right:1.4rem}
+  #pre{padding:1.4rem}
+  .nav-links a:not(.nav-cta){display:none}
+  section{padding:4rem 0}
+  .hero{padding:3.5rem 0 4rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .proj{grid-template-columns:1fr;gap:0.5rem;padding:1.4rem 0}
+  .proj .meta{text-align:left}
+  .proj .arrow{display:none}
+  .contact-card{padding:3.4rem 1.5rem}
+  .hstat{min-width:45%}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== SLIDING SWITCHER ===== -->
-<div class="switch-wrap">
-  <div class="switcher" role="tablist" aria-label="Design concepts">
-    <div class="sw-ind" id="swInd"></div>
-    <button class="sw-btn on" data-i="0" role="tab" aria-selected="true">01</button>
-    <button class="sw-btn" data-i="1" role="tab" aria-selected="false">02</button>
-    <button class="sw-btn" data-i="2" role="tab" aria-selected="false">03</button>
-    <button class="sw-btn" data-i="3" role="tab" aria-selected="false">04</button>
-  </div>
-  <span class="sw-label" id="swLabel">The Specimen — 70s type foundry</span>
+<!-- PRELOADER -->
+<div id="pre" aria-hidden="true">
+  <span class="pre-name">Pearlyn Elizabeth — Portfolio</span>
+  <span id="preNum">000</span>
 </div>
 
-<!-- ================================================================
-     SAMPLE 1 — THE SPECIMEN
-================================================================ -->
-<div class="sample live s1" id="sample0">
-  <div class="s1-head">
-    <span>Pearlyn Elizabeth — Overview</span>
-    <span>AI Systems Architect</span>
-    <span>Est. MMXXVI</span>
-  </div>
-
-  <div class="s1-hero">
-    <h1 class="rv">Pearlyn<br><span class="it">Elizabeth</span></h1>
-    <div class="s1-sub rv">
-      <p>An AI systems architect full of warmth — bringing <b>agentic systems, production RAG and cloud infrastructure</b> to businesses that need them to actually work. MSc Artificial Intelligence, University of Surrey.</p>
-      <span class="s1-badge">Open to AI Architect Roles — UK</span>
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <a href="#" class="brand">Pearlyn Elizabeth<sup>®</sup></a>
+    <div class="nav-links">
+      <a href="#about">n.002 About</a>
+      <a href="#agents">n.003 Agents</a>
+      <a href="#systems">n.005 Systems</a>
+      <a href="#stack">n.006 Stack</a>
+      <a href="mailto:pearlynelizabeth29@gmail.com" class="nav-cta">Get in touch</a>
     </div>
   </div>
+</nav>
 
-  <div class="s1-strip">
-    <div class="rv">Agents<b>05</b></div>
-    <div class="rv">Systems shipped<b>06+</b></div>
-    <div class="rv">Cloud<b>GCP · Vertex</b></div>
-    <div class="rv">Retrieval<b>Hybrid</b></div>
-  </div>
-
-  <div class="s1-sec-label"><span>Pearlyn OS — The Family</span><span>18 PT</span></div>
-  <div class="s1-agents">
-    <div class="s1-agent rv"><span class="pt">AGT 00</span><h3>Hermes<em>Orchestrator</em></h3><p>Parses intent, plans the task graph, routes work across the fleet.</p></div>
-    <div class="s1-agent rv"><span class="pt">AGT 01</span><h3>OpenClaw<em>Research</em></h3><p>Autonomous web research and structured extraction into the RAG layer.</p></div>
-    <div class="s1-agent rv"><span class="pt">AGT 02</span><h3>Scout<em>Lead Gen</em></h3><p>Sources, scores and enriches prospects as a reusable pipeline.</p></div>
-    <div class="s1-agent rv"><span class="pt">AGT 03</span><h3>Forge<em>Deploy</em></h3><p>Turns approved workflows into live n8n automations on GCP.</p></div>
-    <div class="s1-agent rv"><span class="pt">AGT 04</span><h3>Sentinel<em>Monitor</em></h3><p>Watches runs, tracks failures, keeps production observable.</p></div>
-  </div>
-
-  <div class="s1-sec-label"><span>Selected Systems</span><span>Cut in six styles</span></div>
-  <div class="s1-proj-grid">
-    <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s1-proj rv">
-      <span class="s1-pi">Cloud · Vertex AI</span>
-      <h4>Production RAG on Google Cloud</h4>
-      <p>Hybrid retrieval served through Vertex AI and Gemini endpoints, containerised with Docker on a GCP VPS over SSH.</p>
-      <span class="go">View →</span>
-    </a>
-    <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s1-proj rv">
-      <span class="s1-pi">Enterprise · Security</span>
-      <h4>Secure Hybrid RAG Gateway</h4>
-      <p>Prompt-injection defence and Presidio PII detection over hybrid retrieval and reranking.</p>
-      <span class="go">View →</span>
-    </a>
-    <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s1-proj rv">
-      <span class="s1-pi">Local Inference</span>
-      <h4>Hybrid RAG + Ollama</h4>
-      <p>FAISS dense + BM25 sparse with CrossEncoder reranking, fully local on Llama 3.</p>
-      <span class="go">View →</span>
-    </a>
-    <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s1-proj rv">
-      <span class="s1-pi">RAG · Automation</span>
-      <h4>RAG Chatbot + n8n</h4>
-      <p>Drive ingestion, OpenAI embeddings, Pinecone storage — orchestrated hands-off in n8n.</p>
-      <span class="go">View →</span>
-    </a>
-  </div>
-
-  <div class="s1-stackline rv">
-    <b>Stack —</b> Vertex AI · Gemini · GCP · VPS/SSH · Docker · LangChain · n8n · Pinecone · FAISS · BM25 · CrossEncoder · Ollama · Llama 3 · OpenAI · Presidio · FastAPI · Python · Claude Code · Claude Cowork
-  </div>
-
-  <div class="s1-foot">
-    <h2 class="rv">Let's set something<br><em>in production.</em></h2>
-    <div class="s1-foot-links rv">
-      <a href="mailto:pearlynelizabeth29@gmail.com">pearlynelizabeth29@gmail.com</a>
-      <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================================
-     SAMPLE 2 — N° EDITORIAL
-================================================================ -->
-<div class="sample s2" id="sample1">
-  <div class="s2-nav">
-    <span>Pearlyn Elizabeth®</span>
-    <span>AI Systems — UK</span>
-  </div>
-
-  <div class="s2-hero">
-    <span class="s2-no rv">N°001 — The Architect of Agents</span>
+<!-- HERO — N°001 -->
+<header class="hero">
+  <div class="wrap">
+    <span class="hero-no rv">N°001 — AI Systems Architect · MSc AI, University of Surrey</span>
     <h1 class="rv">I build <span class="hl">agent systems</span> and <span class="bl">production RAG</span> that businesses actually run.</h1>
-    <div class="s2-hero-foot rv">
-      <p>MSc Artificial Intelligence, University of Surrey. Multi-agent orchestration, secure retrieval, and cloud deployment on Google Cloud with Vertex AI — designed end to end, shipped end to end.</p>
-      <a href="mailto:pearlynelizabeth29@gmail.com" class="s2-cta"><span class="c"></span>Start a conversation</a>
+    <div class="hero-foot rv">
+      <p>Multi-agent orchestration, secure retrieval, and workflow automation — architected end to end and deployed on <b>Google Cloud with Vertex AI</b>. I design the system, ship it, and can explain the business case in the same meeting.</p>
+      <div class="hero-ctas">
+        <a href="#systems" class="cta dark"><span class="c"></span>View systems</a>
+        <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener" class="cta line">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-stats rv">
+      <div class="hstat"><b>05</b><span>Agents in fleet</span></div>
+      <div class="hstat"><b>06+</b><span>Systems shipped</span></div>
+      <div class="hstat"><b>GCP</b><span>Vertex AI · Docker · SSH</span></div>
+      <div class="hstat"><b>Hybrid</b><span>Dense + sparse + rerank</span></div>
     </div>
   </div>
+</header>
 
-  <div class="s2-marq" aria-hidden="true">
-    <div class="s2-marq-in">
-      <span>n.002 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span><span>n.002 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span>
-    </div>
-  </div>
-
-  <div class="s2-sec">
-    <div class="s2-sec-head"><span class="n">N°002</span><h2>Five agents. One system.</h2></div>
-    <div class="s2-fleet">
-      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Orchestrator</span><h3>Hermes</h3><p>Parses intent, plans the graph, routes every task.</p></div>
-      <div class="s2-agent rv" style="--ac:#C8F169"><span class="tag" style="--ac:#2242FF;color:#fff">Research</span><h3>OpenClaw</h3><p>Autonomous research and clean structured extraction.</p></div>
-      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Lead Gen</span><h3>Scout</h3><p>Sources, scores and enriches prospects on repeat.</p></div>
-      <div class="s2-agent rv" style="--ac:#C8F169"><span class="tag" style="--ac:#2242FF;color:#fff">Deploy</span><h3>Forge</h3><p>Ships approved workflows live to n8n on GCP.</p></div>
-      <div class="s2-agent rv" style="--ac:#2242FF"><span class="tag" style="--ac:#C8F169">Monitor</span><h3>Sentinel</h3><p>Watches every run so production stays honest.</p></div>
-    </div>
-  </div>
-
-  <div class="s2-projwrap">
-    <div class="s2-sec">
-      <div class="s2-sec-head"><span class="n">N°003</span><h2 style="color:#F5F4EF">Selected systems</h2></div>
-      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">001</span><h3>Production RAG on Google Cloud</h3><span class="meta">Vertex AI · Gemini · Docker · SSH</span></a>
-      <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">002</span><h3>Secure Hybrid RAG Gateway</h3><span class="meta">Presidio · Injection Defence</span></a>
-      <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">003</span><h3>Hybrid RAG + Ollama</h3><span class="meta">FAISS · BM25 · CrossEncoder</span></a>
-      <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s2-proj rv"><span class="idx">004</span><h3>RAG Chatbot + n8n Pipeline</h3><span class="meta">Pinecone · OpenAI · n8n</span></a>
-    </div>
-  </div>
-
-  <div class="s2-sec">
-    <div class="s2-sec-head"><span class="n">N°004</span><h2>The stack</h2></div>
-    <div class="s2-stack rv">
-      <span class="s2-chip lime">Vertex AI</span><span class="s2-chip lime">Gemini</span><span class="s2-chip lime">GCP · VPS · SSH</span>
-      <span class="s2-chip">LangChain</span><span class="s2-chip">n8n</span><span class="s2-chip">Pinecone</span><span class="s2-chip">FAISS</span><span class="s2-chip">BM25</span><span class="s2-chip">CrossEncoder</span><span class="s2-chip">Ollama · Llama 3</span><span class="s2-chip">OpenAI</span><span class="s2-chip">Presidio</span><span class="s2-chip">Docker</span><span class="s2-chip">FastAPI</span><span class="s2-chip">Python</span><span class="s2-chip">Claude Code · Cowork</span>
-    </div>
-  </div>
-
-  <div class="s2-contact rv">
-    <h2>Your systems,<br><span class="hl">smarter by design.</span></h2>
-    <div class="s2-contact-row">
-      <a class="s2-cbtn" href="mailto:pearlynelizabeth29@gmail.com">Email</a>
-      <a class="s2-cbtn" href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="s2-cbtn" href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub</a>
-    </div>
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-in">
+    <span>n.00 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span><span>n.00 — Pearlyn OS</span><span>Hermes</span><span>OpenClaw</span><span>Scout</span><span>Forge</span><span>Sentinel</span>
   </div>
 </div>
 
-<!-- ================================================================
-     SAMPLE 3 — POP POSTER
-================================================================ -->
-<div class="sample s3" id="sample2">
-  <div class="s3-hero">
-    <h1 class="rv">Pearlyn<br><span class="out">builds</span> <span class="yel">agents.</span></h1>
-    <div class="s3-hero-row rv">
-      <p>AI systems architect. MSc AI, University of Surrey. I design multi-agent fleets, secure RAG, and cloud automation — then ship them to production on Google Cloud.</p>
-      <div class="s3-stickers">
-        <span class="s3-stick y" style="--r:-3deg">MSc AI</span>
-        <span class="s3-stick p" style="--r:2deg">Vertex AI</span>
-        <span class="s3-stick" style="--r:-2deg">RAG</span>
-        <span class="s3-stick y" style="--r:3deg">n8n</span>
+<!-- ABOUT — N°002 -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-head-l"><span class="sec-no">N°002</span><h2>The architect behind the agents.</h2></div>
+      <span class="sec-rep">n.002 — about — n.002</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-text rv">
+        <p>I'm <b>Pearlyn Elizabeth</b> — an AI systems architect with an MSc in Artificial Intelligence from the <b>University of Surrey</b>. I build the layer most demos skip: <span class="hl-in">production-grade RAG</span>, multi-agent orchestration, and secure LLM gateways that survive contact with real users and real data.</p>
+        <p>My work covers <b>hybrid retrieval</b> (dense + sparse + reranking), <b>agent frameworks</b>, and <b>cloud infrastructure</b> — provisioning on Google Cloud, wiring Vertex AI and Gemini model endpoints, and hardening the pipeline with PII detection and prompt-injection defence.</p>
+        <p>I also bring a <b>commercial lens</b>. I can scope what to build, ship it, and explain why it matters to the business — which is why my systems get adopted, not archived.</p>
+      </div>
+      <div class="facts">
+        <div class="fact rv"><span class="n">A1</span><div><b>MSc Artificial Intelligence</b><span>University of Surrey</span></div></div>
+        <div class="fact rv"><span class="n">A2</span><div><b>Multi-agent orchestration</b><span>Pearlyn OS — a five-agent production fleet</span></div></div>
+        <div class="fact rv"><span class="n">A3</span><div><b>Cloud and infrastructure</b><span>Google Cloud · Vertex AI · VPS · Docker · SSH</span></div></div>
+        <div class="fact rv"><span class="n">A4</span><div><b>Security-first RAG</b><span>Presidio PII detection · injection defence</span></div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="s3-tick" aria-hidden="true">
-    <div class="s3-tick-in">
-      <span>AI Agents</span><span>·</span><span>Production RAG</span><span>·</span><span>Google Cloud</span><span>·</span><span>Vertex AI</span><span>·</span><span>Automation</span><span>·</span><span>AI Agents</span><span>·</span><span>Production RAG</span><span>·</span><span>Google Cloud</span><span>·</span><span>Vertex AI</span><span>·</span><span>Automation</span><span>·</span>
+<!-- AGENTS — N°003 -->
+<section id="agents" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-head-l"><span class="sec-no">N°003</span><h2>Five agents. One system.</h2></div>
+      <span class="sec-rep">n.003 — pearlyn os — n.003</span>
     </div>
-  </div>
-
-  <div class="s3-fleet">
-    <h2 class="s3-h2 rv">Meet <em>Pearlyn OS.</em></h2>
-    <div class="s3-cards">
-      <div class="s3-card rv" style="--bg:#2438F7;--c:#FFF7EA"><span class="id">AGT 00</span><h3>Hermes</h3><p>The orchestrator. Plans the graph, routes every job.</p></div>
-      <div class="s3-card rv" style="--bg:#FFF7EA"><span class="id">AGT 01</span><h3>OpenClaw</h3><p>Research and scraping, fed straight into retrieval.</p></div>
-      <div class="s3-card rv" style="--bg:#FFD23F"><span class="id">AGT 02</span><h3>Scout</h3><p>Lead generation as a repeatable, scored pipeline.</p></div>
-      <div class="s3-card rv" style="--bg:#00A878;--c:#FFF7EA"><span class="id">AGT 03</span><h3>Forge</h3><p>Builds and deploys live n8n automations on GCP.</p></div>
-      <div class="s3-card rv" style="--bg:#FFF7EA"><span class="id">AGT 04</span><h3>Sentinel</h3><p>Monitors every run. Production stays observable.</p></div>
-    </div>
-  </div>
-
-  <div class="s3-projwrap">
-    <h2 class="s3-h2 rv" style="color:#161210">Shipped <em>systems.</em></h2>
-    <div class="s3-projgrid">
-      <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s3-proj rv">
-        <span class="s3-ptag">Cloud · Vertex AI</span>
-        <h4>Production RAG on GCP</h4>
-        <p>Vertex AI and Gemini serving over hybrid retrieval, Dockerised on a GCP VPS via SSH.</p>
-        <span class="go">GitHub →</span>
-      </a>
-      <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s3-proj rv">
-        <span class="s3-ptag">Security</span>
-        <h4>Secure RAG Gateway</h4>
-        <p>Injection defence + Presidio PII detection over hybrid retrieval and reranking.</p>
-        <span class="go">GitHub →</span>
-      </a>
-      <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s3-proj rv">
-        <span class="s3-ptag">Local AI</span>
-        <h4>Hybrid RAG + Ollama</h4>
-        <p>FAISS + BM25 + CrossEncoder, fully local on Llama 3. Zero cloud required.</p>
-        <span class="go">GitHub →</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="s3-foot">
-    <h2 class="rv">Let's make<br>something <span class="yel">loud.</span></h2>
-    <div class="s3-foot-row rv">
-      <a class="s3-fbtn" href="mailto:pearlynelizabeth29@gmail.com">Email me</a>
-      <a class="s3-fbtn" href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="s3-fbtn" href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================================
-     SAMPLE 4 — DUSK BLOOM
-================================================================ -->
-<div class="sample s4" id="sample3">
-  <div class="s4-orb s4-o1"></div><div class="s4-orb s4-o2"></div><div class="s4-orb s4-o3"></div>
-  <div class="s4-inner">
-
-    <div class="s4-hero">
-      <span class="s4-eyebrow rv">Pearlyn Elizabeth — AI Systems Architect</span>
-      <h1 class="rv">Agents that <span class="g">think.</span><br>Systems that <span class="g">ship.</span></h1>
-      <p class="rv">Multi-agent orchestration, secure RAG, and cloud automation — architected end to end and deployed on Google Cloud with Vertex AI. MSc Artificial Intelligence, University of Surrey.</p>
-      <div class="s4-btns rv">
-        <a href="mailto:pearlynelizabeth29@gmail.com" class="s4-btn p">Work with me</a>
-        <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s4-btn o">GitHub</a>
+    <div class="fleet">
+      <div class="agent rv" style="--ac:var(--cobalt)">
+        <div class="agent-top"><span class="tag">Orchestrator</span><span class="aid">AGT 00</span></div>
+        <h3>Hermes</h3><p>Parses intent, plans the task graph, and routes work across the fleet. The control plane.</p>
       </div>
-
-      <div class="s4-orbit rv">
-        <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pearlyn OS agent orbit">
-          <defs>
-            <linearGradient id="s4g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#FF2E93"/><stop offset="0.5" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FFC24B"/>
-            </linearGradient>
-          </defs>
-          <ellipse cx="280" cy="170" rx="240" ry="120" fill="none" stroke="rgba(255,242,230,0.18)" stroke-width="1"/>
-          <ellipse cx="280" cy="170" rx="160" ry="80" fill="none" stroke="rgba(255,242,230,0.12)" stroke-width="1"/>
-          <circle cx="280" cy="170" r="46" fill="url(#s4g)"/>
-          <text x="280" y="166" text-anchor="middle" fill="#1A0B24" font-family="Space Mono" font-weight="700" font-size="13">HERMES</text>
-          <text x="280" y="182" text-anchor="middle" fill="rgba(26,11,36,0.7)" font-family="Space Mono" font-size="7.5">ORCHESTRATOR</text>
-          <g class="s4-spin">
-            <g transform="translate(40,170)"><circle r="26" fill="#241031" stroke="#FF2E93" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">OpenClaw</text></g>
-            <g transform="translate(520,170)"><circle r="26" fill="#241031" stroke="#FFC24B" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Scout</text></g>
-            <g transform="translate(280,50)"><circle r="26" fill="#241031" stroke="#FF7A3D" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Forge</text></g>
-            <g transform="translate(280,290)"><circle r="26" fill="#241031" stroke="#7A3DF5" stroke-width="1.2"/><text y="4" text-anchor="middle" fill="#FFF2E6" font-family="Space Mono" font-size="9" class="s4-counter" style="transform-origin:0 0">Sentinel</text></g>
-          </g>
-        </svg>
+      <div class="agent rv" style="--ac:var(--lime);--tg:var(--cobalt);--tgc:#fff">
+        <div class="agent-top"><span class="tag">Research</span><span class="aid">AGT 01</span></div>
+        <h3>OpenClaw</h3><p>Autonomous web research and structured extraction, fed straight into the retrieval layer.</p>
+      </div>
+      <div class="agent rv" style="--ac:var(--cobalt)">
+        <div class="agent-top"><span class="tag">Lead Gen</span><span class="aid">AGT 02</span></div>
+        <h3>Scout</h3><p>Sources, scores, and enriches prospects as a reusable, repeatable pipeline.</p>
+      </div>
+      <div class="agent rv" style="--ac:var(--lime);--tg:var(--cobalt);--tgc:#fff">
+        <div class="agent-top"><span class="tag">Deploy</span><span class="aid">AGT 03</span></div>
+        <h3>Forge</h3><p>Turns approved workflows into live n8n automations and containerised services on GCP.</p>
+      </div>
+      <div class="agent rv" style="--ac:var(--cobalt)">
+        <div class="agent-top"><span class="tag">Monitor</span><span class="aid">AGT 04</span></div>
+        <h3>Sentinel</h3><p>Watches runs, tracks failures, raises alerts. Production stays observable and honest.</p>
       </div>
     </div>
-
-    <div class="s4-sec">
-      <div class="s4-sec-head rv"><h2>Systems, <b>shipped.</b></h2></div>
-      <div class="s4-glass-grid">
-        <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="s4-glass rv">
-          <span class="t">Cloud · Vertex AI · Gemini</span>
-          <h3>Production RAG on Google Cloud</h3>
-          <p>Hybrid retrieval served through Vertex AI endpoints, containerised with Docker and provisioned on a GCP VPS over SSH.</p>
-          <span class="go">View on GitHub →</span>
-        </a>
-        <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="s4-glass rv">
-          <span class="t">Enterprise · Security</span>
-          <h3>Secure Hybrid RAG Gateway</h3>
-          <p>Prompt-injection defence and Presidio PII detection layered over hybrid retrieval and reranking.</p>
-          <span class="go">View on GitHub →</span>
-        </a>
-        <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="s4-glass rv">
-          <span class="t">Hybrid · Local Inference</span>
-          <h3>Hybrid RAG + Ollama</h3>
-          <p>FAISS dense + BM25 sparse with CrossEncoder reranking, running fully local on Llama 3.</p>
-          <span class="go">View on GitHub →</span>
-        </a>
-        <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="s4-glass rv">
-          <span class="t">RAG · Automation</span>
-          <h3>RAG Chatbot + n8n</h3>
-          <p>Drive ingestion, OpenAI embeddings and Pinecone retrieval, orchestrated hands-off in n8n.</p>
-          <span class="go">View on GitHub →</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="s4-sec">
-      <div class="s4-sec-head rv"><h2>The <b>stack.</b></h2></div>
-      <div class="s4-chips rv">
-        <span class="s4-chip">Vertex AI</span><span class="s4-chip">Gemini</span><span class="s4-chip">GCP · VPS · SSH</span><span class="s4-chip">LangChain</span><span class="s4-chip">n8n</span><span class="s4-chip">Pinecone</span><span class="s4-chip">FAISS</span><span class="s4-chip">BM25</span><span class="s4-chip">CrossEncoder</span><span class="s4-chip">Ollama · Llama 3</span><span class="s4-chip">OpenAI</span><span class="s4-chip">Presidio</span><span class="s4-chip">Docker</span><span class="s4-chip">FastAPI</span><span class="s4-chip">Python</span><span class="s4-chip">Claude Code · Cowork</span>
-      </div>
-    </div>
-
-    <div class="s4-contact">
-      <h2 class="rv">Let's build something<br><span class="g">luminous.</span></h2>
-      <div class="s4-btns rv">
-        <a href="mailto:pearlynelizabeth29@gmail.com" class="s4-btn p">pearlynelizabeth29@gmail.com</a>
-        <a href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener" class="s4-btn o">LinkedIn</a>
-      </div>
-    </div>
-
   </div>
-</div>
+</section>
+
+<!-- PROCESS — N°004 -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-head-l"><span class="sec-no">N°004</span><h2>How a system gets built.</h2></div>
+      <span class="sec-rep">n.004 — process — n.004</span>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="sn">01</span><b>Discover</b><p>Map the workflow, the data, and the actual business problem worth automating.</p></div>
+      <div class="step rv"><span class="sn">02</span><b>Architect</b><p>Design retrieval, agents, and infrastructure — chosen for the constraint, not the hype.</p></div>
+      <div class="step rv"><span class="sn">03</span><b>Build</b><p>Hybrid RAG, orchestration, and guardrails — Presidio PII, injection defence, evals.</p></div>
+      <div class="step rv"><span class="sn">04</span><b>Deploy</b><p>Containerise with Docker and ship to Google Cloud — Vertex AI endpoints, VPS, SSH.</p></div>
+      <div class="step rv"><span class="sn">05</span><b>Monitor</b><p>Observe runs, track failures, iterate. A system that isn't watched isn't finished.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEMS — N°005 -->
+<section class="systems" id="systems">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-head-l"><span class="sec-no">N°005</span><h2 style="color:var(--paper)">Selected systems.</h2></div>
+      <span class="sec-rep">n.005 — work — n.005</span>
+    </div>
+
+    <a href="https://github.com/Pearlyneliza" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">001</span>
+      <div><h3>Production RAG on Google Cloud</h3></div>
+      <p class="desc">Hybrid retrieval served through Vertex AI and Gemini endpoints, containerised with Docker on a GCP VPS over SSH.</p>
+      <span class="meta">Vertex AI · Gemini<br>GCP · Docker · SSH</span>
+    </a>
+
+    <a href="https://github.com/Pearlyneliza/secure-hybrid-rag-gateway" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">002</span>
+      <div><h3>Secure Hybrid RAG Gateway</h3></div>
+      <p class="desc">Prompt-injection defence and Presidio PII detection layered over hybrid retrieval and reranking. Built for sensitive data.</p>
+      <span class="meta">LangChain · Presidio<br>FAISS · Streamlit</span>
+    </a>
+
+    <a href="https://github.com/Pearlyneliza/hybrid-rag-ollama" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">003</span>
+      <div><h3>Hybrid RAG + Ollama</h3></div>
+      <p class="desc">FAISS dense + BM25 sparse fused with CrossEncoder reranking, running fully local on Llama 3. Zero cloud dependency.</p>
+      <span class="meta">FAISS · BM25<br>CrossEncoder · Llama 3</span>
+    </a>
+
+    <a href="https://github.com/Pearlyneliza/rag-ai-chatbot-n8n" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">004</span>
+      <div><h3>RAG Chatbot + n8n Pipeline</h3></div>
+      <p class="desc">Drive ingestion, OpenAI embeddings, and Pinecone retrieval — orchestrated hands-off in n8n, end to end.</p>
+      <span class="meta">n8n · OpenAI<br>Pinecone</span>
+    </a>
+
+    <a href="https://github.com/Pearlyneliza/ai-wiki-rag-system" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">005</span>
+      <div><h3>AI Wiki RAG System</h3></div>
+      <p class="desc">Turns a document corpus into a queryable knowledge base — ingestion, embeddings, semantic search, grounded answers.</p>
+      <span class="meta">Python · Embeddings<br>RAG</span>
+    </a>
+
+    <a href="https://github.com/Pearlyneliza/Ecommerce-sales-dashboard-Excel" target="_blank" rel="noopener" class="proj rv">
+      <span class="idx">006</span>
+      <div><h3>E-Commerce Analytics Dashboard</h3></div>
+      <p class="desc">Interactive BI over 1,000+ transactions — trends, top products, underperformers. The data literacy under the AI work.</p>
+      <span class="meta">Excel · Power BI<br>Analysis</span>
+    </a>
+  </div>
+</section>
+
+<!-- STACK — N°006 -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-head-l"><span class="sec-no">N°006</span><h2>The stack, by layer.</h2></div>
+      <span class="sec-rep">n.006 — stack — n.006</span>
+    </div>
+    <div class="stack-groups">
+      <div class="sgroup rv">
+        <div class="sgroup-h"><span class="gl">L1</span><b>Models & Inference</b></div>
+        <div class="chips">
+          <span class="chip lm">Vertex AI</span><span class="chip lm">Gemini</span><span class="chip">OpenAI</span><span class="chip">Ollama · Llama 3</span><span class="chip">Claude Code · Cowork</span>
+        </div>
+      </div>
+      <div class="sgroup rv">
+        <div class="sgroup-h"><span class="gl">L2</span><b>Retrieval & RAG</b></div>
+        <div class="chips">
+          <span class="chip">Pinecone</span><span class="chip">FAISS</span><span class="chip">BM25</span><span class="chip">CrossEncoder</span><span class="chip">Presidio</span>
+        </div>
+      </div>
+      <div class="sgroup rv">
+        <div class="sgroup-h"><span class="gl">L3</span><b>Orchestration</b></div>
+        <div class="chips">
+          <span class="chip">Hermes · OpenClaw</span><span class="chip">LangChain</span><span class="chip">n8n</span><span class="chip">FastAPI</span><span class="chip">Python</span>
+        </div>
+      </div>
+      <div class="sgroup rv">
+        <div class="sgroup-h"><span class="gl">L4</span><b>Infra & DevOps</b></div>
+        <div class="chips">
+          <span class="chip lm">Google Cloud</span><span class="chip lm">GCP VPS · SSH</span><span class="chip">Docker</span><span class="chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — N°007 -->
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact-card rv">
+      <h2>Your systems,<br><span class="hl">smarter by design.</span></h2>
+      <p>Open to AI engineer and solution architect roles — UK and remote. If you're building agent systems or production RAG, let's talk.</p>
+      <div class="contact-row">
+        <a class="cbtn" href="mailto:pearlynelizabeth29@gmail.com">Email me</a>
+        <a class="cbtn" href="https://www.linkedin.com/in/pearlyn-elizabeth-" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="cbtn" href="https://github.com/Pearlyneliza" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span class="brand">Pearlyn Elizabeth<sup style="font-family:'Space Mono';font-size:0.55em;color:var(--cobalt)">®</sup></span>
+    <p>AI Systems Architect — MSc AI, University of Surrey</p>
+    <p>© 2026 — Built with intent</p>
+  </div>
+</footer>
 
 <script>
-const names=[
-  'The Specimen — 70s type foundry',
-  'N° Editorial — clean & colourful',
-  'Pop Poster — loud & playful',
-  'Dusk Bloom — gradient luxe'
-];
-const btns=[...document.querySelectorAll('.sw-btn')];
-const samples=[...document.querySelectorAll('.sample')];
-const ind=document.getElementById('swInd');
-const label=document.getElementById('swLabel');
+/* preloader */
+(function(){
+  const pre=document.getElementById('pre');
+  if(!pre)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){pre.remove();return}
+  const num=document.getElementById('preNum');
+  let n=0;
+  const t=setInterval(()=>{
+    n+=Math.floor(Math.random()*13)+7;
+    if(n>=100){n=100;clearInterval(t);
+      setTimeout(()=>pre.classList.add('done'),180);
+      setTimeout(()=>pre.remove(),1050);
+    }
+    num.textContent=String(n).padStart(3,'0');
+  },70);
+})();
 
-function place(i){
-  const b=btns[i];
-  ind.style.width=b.offsetWidth+'px';
-  ind.style.transform='translateX('+(b.offsetLeft-5)+'px)';
-}
-function go(i){
-  btns.forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i)});
-  samples.forEach((s,j)=>s.classList.toggle('live',j===i));
-  label.textContent=names[i];
-  place(i);
-  window.scrollTo({top:0,behavior:'instant'});
-  observeReveals();
-}
-btns.forEach(b=>b.addEventListener('click',()=>go(+b.dataset.i)));
-window.addEventListener('resize',()=>place(btns.findIndex(b=>b.classList.contains('on'))));
-
-let io;
-function observeReveals(){
-  if(io)io.disconnect();
-  io=new IntersectionObserver(es=>{
-    es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*55);io.unobserve(e.target)}});
-  },{threshold:0.1});
-  document.querySelectorAll('.sample.live .rv:not(.in)').forEach(el=>io.observe(el));
-}
-place(0);observeReveals();
+/* scroll reveal */
+const io=new IntersectionObserver(es=>{
+  es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*55);io.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
